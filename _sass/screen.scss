@@ -1,0 +1,11 @@
+@import "base";
+
+body {
+  @include column(24);
+
+  nav ul {
+    @include horizontal-list;
+    @include header-text;
+
+  }
+}
