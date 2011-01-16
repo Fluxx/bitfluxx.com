@@ -823,8 +823,6 @@ body nav ul {
   outline: 0;
   overflow: hidden;
   *zoom: 1;
-  font-weight: normal;
-  color: #222222;
 }
 /* line 57, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
 body nav ul li {
@@ -843,5 +841,33 @@ body nav ul li:first-child, body nav ul li.first {
 }
 /* line 46, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
 body nav ul li:last-child, body nav ul li.last {
+  padding-right: 0;
+}
+/* line 10, ../_sass/screen.scss */
+body section#social ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 57, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
+body section#social ul li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0px;
+  white-space: nowrap;
+  display: inline;
+  float: left;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+/* line 45, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
+body section#social ul li:first-child, body section#social ul li.first {
+  padding-left: 0;
+}
+/* line 46, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
+body section#social ul li:last-child, body section#social ul li.last {
   padding-right: 0;
 }

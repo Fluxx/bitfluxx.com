@@ -1,19 +1,9 @@
 ---
 layout: default
-title: Jeff Pollard
+title: Blog
 ---
-<section id="social">
-  <ul id="links">
-    <li>Twitter</li>
-    <li>Github</li>
-    <li>Facebook</li>
-  </ul>
-</section>
 
-<section id="archive">
-  
-  <h1>Recent Blog Posts</h1>
-  
+<section>
   <ul class="posts">
     {% for post in site.posts %}
     <li><a href="{{ post.url }}">{{ post.title }}</a><abbr>{{ post.date | date_to_string }}</abbr></li>

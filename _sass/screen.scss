@@ -5,7 +5,9 @@ body {
 
   nav ul {
     @include horizontal-list;
-    @include header-text;
-
+  }
+  
+  section#social ul {
+    @include horizontal-list;
   }
 }
