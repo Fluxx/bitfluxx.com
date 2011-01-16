@@ -4,3 +4,9 @@ title: Welcome to the new site!
 ---
 
 Welcome!
+
+{% highlight ruby %}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}
