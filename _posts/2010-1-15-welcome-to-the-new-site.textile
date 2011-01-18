@@ -1,9 +1,9 @@
 ---
-layout: default
+layout: post
 title: Welcome to the new site!
 ---
 
-Welcome!
+lolololol
 
 {% highlight ruby %}
 def foo

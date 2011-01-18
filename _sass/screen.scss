@@ -3,10 +3,59 @@
 body {
   @include column(24);
 
-  nav ul {
-    @include horizontal-list;
+  font-family: $bf-font-family;
+  margin: 10px;
+
+  a {
+    @include link-colors($bf-blue, $bf-yellow, $bf-blue, #AAA); 
+  }
+
+  header#sitewide {
+    @include clearfix;
+    @include container;
+    
+    margin-bottom: 2em;
+
+    div#name {
+      @include column(5);
+      
+      h1 {
+        background-color: $bf-blue;
+        color: $bf-yellow;
+        font-size: 200%;
+        padding: 20px;
+      }
+      
+    } 
+    
+    nav {
+      @include column(18, true);
+
+      ul {
+        @include horizontal-list;
+
+        font-size: 150%;
+        margin-left: 20px;
+
+        li { padding: 25px 10px; }
+      }
+      
+    }
+
   }
   
+  article.post {
+    @include blueprint-typography(true);
+    
+    header {
+      margin-bottom: 1em;
+      
+      date {
+        @include quiet
+      }      
+    }
+  }
+
   section#social ul {
     @include horizontal-list;
   }

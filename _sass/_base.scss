@@ -4,3 +4,16 @@
 
 @include reset-html5;
 @include blueprint-grid;
+
+$bf-blue: #2A3048;
+$bf-yellow: #CFFF4B;
+$bf-font-family: "Baskerville", "Baskerville Old Face", "Georgia", serif;
+
+$blueprint-font-family: $bf-font-family;
+$blueprint-font-size: 16px;
+$font-color: #111;
+
+code, pre {
+  font-family: "Monoco", $blueprint-fixed-font-family;
+  font-size: 90%;
+}
