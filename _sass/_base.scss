@@ -3,15 +3,20 @@
 @import "blueprint";
 
 @include reset-html5;
-@include blueprint-grid;
+
 
 $bf-blue: #2A3048;
 $bf-yellow: #CFFF4B;
 $bf-font-family: "Baskerville", "Baskerville Old Face", "Georgia", serif;
 
+$font-color: #111;
 $blueprint-font-family: $bf-font-family;
 $blueprint-font-size: 16px;
-$font-color: #111;
+$blueprint-grid-columns: 38;
+$blueprint-grid-width: 15px;
+$blueprint-grid-margin: 10px;
+$blueprint_grid_outer_width: 25px;
+@include blueprint-grid;
 
 code, pre {
   font-family: "Monoco", $blueprint-fixed-font-family;
