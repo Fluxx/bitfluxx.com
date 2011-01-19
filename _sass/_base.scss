@@ -17,3 +17,8 @@ code, pre {
   font-family: "Monoco", $blueprint-fixed-font-family;
   font-size: 90%;
 }
+
+section, article { 
+  @include blueprint-typography(true);
+  h1 { font-size: 2.5em; }
+}

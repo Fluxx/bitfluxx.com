@@ -44,19 +44,18 @@ body {
 
   }
   
-  article.post {
-    @include blueprint-typography(true);
-    
+  article.post {    
     header {
       margin-bottom: 1em;
-      
-      date {
-        @include quiet
-      }      
     }
   }
-
-  section#social ul {
-    @include horizontal-list;
+  
+  ul.posts {
+    time { font-color: $alt-text-color; }
   }
+  
+  section#bio {
+    font-size: 150%;
+  }
+
 }

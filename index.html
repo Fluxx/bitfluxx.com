@@ -2,12 +2,9 @@
 layout: default
 title: Jeff Pollard
 ---
-<section id="social">
-  <ul id="links">
-    <li>Twitter</li>
-    <li>Github</li>
-    <li>Facebook</li>
-  </ul>
+
+<section id="bio">
+  <p>The website of Jeff Pollard. Software engineer. Rubyist. Dog Owner. Lover of music.</p>
 </section>
 
 <section id="archive">
@@ -16,7 +13,7 @@ title: Jeff Pollard
   
   <ul class="posts">
     {% for post in site.posts %}
-    <li><a href="{{ post.url }}">{{ post.title }}</a><abbr>{{ post.date | date_to_string }}</abbr></li>
+    <li><a href="{{ post.url }}">{{ post.title }}</a> &mdash; {{ post.date | date_to_string }}</li>
     {% endfor %}
   </ul>
 </section>

@@ -5,6 +5,8 @@ title: Welcome to the new site!
 
 lolololol
 
+lolololol
+
 {% highlight ruby %}
 def foo
   puts 'foo'
