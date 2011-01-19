@@ -1,61 +1,16 @@
 @import "base";
+@import "layout";
 
-body {
-  @include column(24);
-
-  font-family: $bf-font-family;
-  margin: 10px;
-
-  a {
-    @include link-colors($bf-blue, $bf-yellow, $bf-blue, #AAA); 
+article.post {    
+  header {
+    margin-bottom: 1em;
   }
+}
 
-  header#sitewide {
-    @include clearfix;
-    @include container;
-    
-    margin-bottom: 2em;
+ul.posts {
+  time { font-color: $alt-text-color; }
+}
 
-    div#name {
-      @include column(5);
-      
-      h1 {
-        background-color: $bf-blue;
-        color: $bf-yellow;
-        font-size: 200%;
-        padding: 20px;
-      }
-      
-    } 
-    
-    nav {
-      @include column(18, true);
-
-      ul {
-        @include horizontal-list;
-
-        font-size: 150%;
-        margin-left: 20px;
-
-        li { padding: 25px 10px; }
-      }
-      
-    }
-
-  }
-  
-  article.post {    
-    header {
-      margin-bottom: 1em;
-    }
-  }
-  
-  ul.posts {
-    time { font-color: $alt-text-color; }
-  }
-  
-  section#bio {
-    font-size: 150%;
-  }
-
+section#bio {
+  font-size: 150%;
 }

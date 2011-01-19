@@ -1016,7 +1016,7 @@ section h1, article h1 {
   font-size: 2.5em;
 }
 
-/* line 3, ../_sass/screen.scss */
+/* line 1, ../_sass/_layout.scss */
 body {
   display: inline;
   float: left;
@@ -1029,7 +1029,7 @@ body {
 * html body {
   overflow-x: hidden;
 }
-/* line 9, ../_sass/screen.scss */
+/* line 7, ../_sass/_layout.scss */
 body a {
   color: #2a3048;
 }
@@ -1045,7 +1045,7 @@ body a:hover {
 body a:active {
   color: #2a3048;
 }
-/* line 13, ../_sass/screen.scss */
+/* line 9, ../_sass/_layout.scss */
 body header#sitewide {
   overflow: hidden;
   *zoom: 1;
@@ -1055,7 +1055,7 @@ body header#sitewide {
   *zoom: 1;
   margin-bottom: 2em;
 }
-/* line 19, ../_sass/screen.scss */
+/* line 15, ../_sass/_layout.scss */
 body header#sitewide div#name {
   display: inline;
   float: left;
@@ -1066,14 +1066,14 @@ body header#sitewide div#name {
 * html body header#sitewide div#name {
   overflow-x: hidden;
 }
-/* line 22, ../_sass/screen.scss */
+/* line 18, ../_sass/_layout.scss */
 body header#sitewide div#name h1 {
   background-color: #2a3048;
   color: #cfff4b;
   font-size: 200%;
   padding: 20px;
 }
-/* line 31, ../_sass/screen.scss */
+/* line 27, ../_sass/_layout.scss */
 body header#sitewide nav {
   display: inline;
   float: left;
@@ -1084,7 +1084,7 @@ body header#sitewide nav {
 * html body header#sitewide nav {
   overflow-x: hidden;
 }
-/* line 34, ../_sass/screen.scss */
+/* line 30, ../_sass/_layout.scss */
 body header#sitewide nav ul {
   margin: 0;
   padding: 0;
@@ -1114,19 +1114,31 @@ body header#sitewide nav ul li:first-child, body header#sitewide nav ul li.first
 body header#sitewide nav ul li:last-child, body header#sitewide nav ul li.last {
   padding-right: 0;
 }
-/* line 40, ../_sass/screen.scss */
+/* line 36, ../_sass/_layout.scss */
 body header#sitewide nav ul li {
   padding: 25px 10px;
 }
-/* line 48, ../_sass/screen.scss */
-body article.post header {
+
+/* line 48, ../_sass/_layout.scss */
+body#home nav li#home-link a,
+body#blog nav li#blog-link a,
+body#projects nav li#projects-link a,
+body#resume nav li#resume-link a {
+  background: #eeeeee;
+  padding: 5px;
+}
+
+/* line 5, ../_sass/screen.scss */
+article.post header {
   margin-bottom: 1em;
 }
-/* line 54, ../_sass/screen.scss */
-body ul.posts time {
+
+/* line 11, ../_sass/screen.scss */
+ul.posts time {
   font-color: #666666;
 }
-/* line 57, ../_sass/screen.scss */
-body section#bio {
+
+/* line 14, ../_sass/screen.scss */
+section#bio {
   font-size: 150%;
 }
