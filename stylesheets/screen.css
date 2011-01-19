@@ -1017,19 +1017,32 @@ section h1, article h1 {
 }
 
 /* line 1, ../_sass/_layout.scss */
+html {
+  background: #DDD;
+}
+
+/* line 5, ../_sass/_layout.scss */
 body {
   display: inline;
   float: left;
   margin-right: 10px;
-  width: 950px;
+  width: 870px;
+  padding-left: 40px;
+  padding-right: 40px;
+  -moz-box-shadow: #cccccc 1px 1px 5px 0;
+  -webkit-box-shadow: #cccccc 1px 1px 5px 0;
+  -o-box-shadow: #cccccc 1px 1px 5px 0;
+  box-shadow: #cccccc 1px 1px 5px 0;
   font-family: "Baskerville", "Baskerville Old Face", "Georgia", serif;
-  margin: 10px;
+  min-height: 100%;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 /* line 139, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html body {
   overflow-x: hidden;
 }
-/* line 7, ../_sass/_layout.scss */
+/* line 17, ../_sass/_layout.scss */
 body a {
   color: #2a3048;
 }
@@ -1045,7 +1058,7 @@ body a:hover {
 body a:active {
   color: #2a3048;
 }
-/* line 9, ../_sass/_layout.scss */
+/* line 19, ../_sass/_layout.scss */
 body header#sitewide {
   overflow: hidden;
   *zoom: 1;
@@ -1055,7 +1068,7 @@ body header#sitewide {
   *zoom: 1;
   margin-bottom: 2em;
 }
-/* line 15, ../_sass/_layout.scss */
+/* line 25, ../_sass/_layout.scss */
 body header#sitewide div#name {
   display: inline;
   float: left;
@@ -1066,14 +1079,30 @@ body header#sitewide div#name {
 * html body header#sitewide div#name {
   overflow-x: hidden;
 }
-/* line 18, ../_sass/_layout.scss */
+/* line 28, ../_sass/_layout.scss */
 body header#sitewide div#name h1 {
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -o-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  border-radius: 20px;
   background-color: #2a3048;
   color: #cfff4b;
   font-size: 200%;
   padding: 20px;
 }
-/* line 27, ../_sass/_layout.scss */
+/* line 36, ../_sass/_layout.scss */
+body header#sitewide div#name h1 a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+}
+/* line 6, ../../../../../opt/local/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/links/_unstyled-link.scss */
+body header#sitewide div#name h1 a:active, body header#sitewide div#name h1 a:focus {
+  outline: none;
+}
+/* line 41, ../_sass/_layout.scss */
 body header#sitewide nav {
   display: inline;
   float: left;
@@ -1084,7 +1113,7 @@ body header#sitewide nav {
 * html body header#sitewide nav {
   overflow-x: hidden;
 }
-/* line 30, ../_sass/_layout.scss */
+/* line 44, ../_sass/_layout.scss */
 body header#sitewide nav ul {
   margin: 0;
   padding: 0;
@@ -1114,31 +1143,43 @@ body header#sitewide nav ul li:first-child, body header#sitewide nav ul li.first
 body header#sitewide nav ul li:last-child, body header#sitewide nav ul li.last {
   padding-right: 0;
 }
-/* line 36, ../_sass/_layout.scss */
+/* line 50, ../_sass/_layout.scss */
 body header#sitewide nav ul li {
   padding: 25px 10px;
 }
+/* line 51, ../_sass/_layout.scss */
+body header#sitewide nav ul a {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+}
 
-/* line 48, ../_sass/_layout.scss */
-body#home nav li#home-link a,
+/* line 62, ../_sass/_layout.scss */
 body#blog nav li#blog-link a,
 body#projects nav li#projects-link a,
 body#resume nav li#resume-link a {
   background: #eeeeee;
-  padding: 5px;
+  padding: 5px 7px;
 }
 
 /* line 5, ../_sass/screen.scss */
 article.post header {
   margin-bottom: 1em;
 }
+/* line 7, ../_sass/screen.scss */
+article.post header time {
+  color: #666666;
+}
 
-/* line 11, ../_sass/screen.scss */
+/* line 12, ../_sass/screen.scss */
 ul.posts time {
   font-color: #666666;
 }
 
-/* line 14, ../_sass/screen.scss */
+/* line 15, ../_sass/screen.scss */
 section#bio {
   font-size: 150%;
 }

@@ -1,0 +1,65 @@
+html {
+  background: #DDD;
+}
+
+body {
+  @include column(22);
+  @include prepend(1);
+  @include append(1);
+  
+  @include box-shadow(#CCC);
+
+  font-family: $bf-font-family;
+  min-height: 100%;
+  padding-top: $blueprint-grid-outer-width;
+  padding-bottom: $blueprint-grid-outer-width;
+
+  a { @include link-colors($bf-blue, $bf-yellow, $bf-blue, #AAA); }
+
+  header#sitewide {
+    @include clearfix;
+    @include container;
+    
+    margin-bottom: 2em;
+
+    div#name {
+      @include column(5);
+      
+      h1 {
+        @include border-radius(20px);
+        
+        background-color: $bf-blue;
+        color: $bf-yellow;
+        font-size: 200%;
+        padding: 20px;
+        
+        a { @include unstyled-link; }
+      }
+      
+    } 
+    
+    nav {
+      @include column(18, true);
+
+      ul {
+        @include horizontal-list;
+
+        font-size: 150%;
+        margin-left: 20px;
+
+        li { padding: 25px 10px; }
+        a { @include border-radius(10px); }
+      }
+      
+    }
+
+  }
+  
+}
+
+body#blog nav li#blog-link a,
+body#projects nav li#projects-link a,
+body#resume nav li#resume-link a {
+  background: $blueprint-background-color;
+  padding: 5px 7px;
+}

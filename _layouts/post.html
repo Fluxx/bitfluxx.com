@@ -6,7 +6,7 @@ section: blog
 <article class="post">
   <header>
     <h1>{{ page.title }}</h1>
-    <time datetime="{{ post.date }}" pubdate>Written {{ page.date | date_to_string }}</time>
+    <p><time datetime="{{ post.date }}" pubdate>Written {{ page.date | date_to_string }}</time></p>
   </header>
 
   {{ content }}
