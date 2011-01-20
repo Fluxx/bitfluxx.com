@@ -9,7 +9,6 @@ body {
   
   @include box-shadow(#CCC);
 
-  font-family: $bf-font-family;
   min-height: 100%;
   padding-top: $blueprint-grid-outer-width;
   padding-bottom: $blueprint-grid-outer-width;
@@ -32,7 +31,7 @@ body {
         color: $bf-yellow;
         font-size: 200%;
         padding: 20px;
-        
+        text-align: center;        
         a { @include unstyled-link; }
       }
       
@@ -43,10 +42,10 @@ body {
 
       ul {
         @include horizontal-list;
-
+        
         font-size: 150%;
         margin-left: 20px;
-
+        
         li { padding: 25px 10px; }
         a { @include border-radius(10px); }
       }
@@ -61,5 +60,5 @@ body#blog nav li#blog-link a,
 body#projects nav li#projects-link a,
 body#resume nav li#resume-link a {
   background: $blueprint-background-color;
-  padding: 5px 7px;
+  padding: 10px 14px;
 }

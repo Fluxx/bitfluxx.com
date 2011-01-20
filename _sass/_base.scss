@@ -1,29 +1,19 @@
+/*Blueprint specific variables to set*/
+$blueprint-font-size: 14px;
+$blueprint-grid-columns: 38;
+$blueprint-grid-width: 15px;
+$blueprint-grid-margin: 10px;
+$blueprint_grid_outer_width: 25px;
+
+/*My personal ones*/
+$bf-blue: #2A3048;
+$bf-yellow: #CFFF4B;
+$blueprint-font-family: "georgia", "times", serif;
+
 @import "compass";
 @import "compass/reset";
 @import "blueprint";
 
 @include reset-html5;
-
-
-$bf-blue: #2A3048;
-$bf-yellow: #CFFF4B;
-$bf-font-family: "Baskerville", "Baskerville Old Face", "Georgia", serif;
-
-$font-color: #111;
-$blueprint-font-family: $bf-font-family;
-$blueprint-font-size: 16px;
-$blueprint-grid-columns: 38;
-$blueprint-grid-width: 15px;
-$blueprint-grid-margin: 10px;
-$blueprint_grid_outer_width: 25px;
+@include blueprint-typography;
 @include blueprint-grid;
-
-code, pre {
-  font-family: "Monoco", $blueprint-fixed-font-family;
-  font-size: 90%;
-}
-
-section, article { 
-  @include blueprint-typography(true);
-  h1 { font-size: 2.5em; }
-}
