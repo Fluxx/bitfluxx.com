@@ -1,0 +1,19 @@
+---
+layout: post
+title: New Beginnings
+---
+
+Back in late 2007, my girlfriend and I started a hobby web/content development company called "GLUEinteractive":http://gluei.com.  I had been doing off and on freelance development for a while and decided to make it somewhat official by creating a website, getting a business license and actually "doing it right."
+
+I built the entire GLUEinteractive site myself.  CakePHP serves as the base web framework, but all the design, HTML, CSS and whatnot is all me.  I spent countless hours in Photoshop tweaking the design.  I coded up a custom user login system where one goes to log in to write/publish blog posts.  I purchased a slicehost to host it, configured apache and MySQL on the server and deployed the site via a @rsync@ command.
+
+PHP isn't a very "inspiring" language.  It's quick to learn, very forgiving and easy to become basically proficient.  But there is no soul.  The majority of community is full of programmers who continue to reinvent the wheel and write mountains of code to solve problems.  Sure, there are projects like PECL or PEAR, 
+
+Shortly after I finished GLUEinteractive, I was introduced to Ruby by a coworker.  He gave me the pickaxe book to read, and it pretty much changed my professional life.  Ruby was really the first time I had been exposed to concepts like threads, I/O, unit testing, blocks, lambdas.
+
+<!-- I exposed myself to new concepts, voraciously consumed articles, blog posts and books on everything design patterns to concurrency and sockets.  I even set out to learn new languages like Python and C, to improve myself even more.
+
+Users of the language used it to do amazing things.  Rails is a great example of this, but there were also projects like Merb, Sinatra, Rack.  Web servers like Thin or Mongrel.  Evented programming with EventMachine.  Nokogiri.  _whys's amazing contributions.  The list goes on and on.
+
+I'll never be the same because of it.  I exposed myself to new concepts, voraciously consumed articles, blog posts and books on everything design patterns to concurrency and sockets.  I even set out to learn new languages like Python and C, to improve myself even more.
+ -->
