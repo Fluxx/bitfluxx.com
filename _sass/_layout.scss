@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @include column(36);
+  @include column(22);
   @include prepend(1);
   @include append(1);
   
@@ -22,7 +22,7 @@ body {
     margin-bottom: 2em;
 
     div#name {
-      @include column(8);
+      @include column(6);
       
       h1 {
         @include border-radius(20px);
@@ -38,7 +38,7 @@ body {
     } 
     
     nav {
-      @include column(18, true);
+      @include column(16, true);
 
       ul {
         @include horizontal-list;
