@@ -1208,4 +1208,5 @@ ul.posts time {
 /* line 15, ../_sass/screen.scss */
 section#bio {
   font-size: 150%;
+  font-style: italic;
 }
