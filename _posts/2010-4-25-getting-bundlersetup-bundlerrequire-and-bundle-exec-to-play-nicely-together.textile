@@ -5,7 +5,7 @@ title: Getting Bundler.setup, Bundler.require and bundle exec to Play Nicely Tog
 
 Once I upgraded by install of "Bundler":http://gembundler.com/ this morning and decided to try locking my @Gemfile@ in my latest freelance project.  Everything was going well until I experienced the following:
 
-{% highlight ruby %}
+{% highlight %}
 jefflaptop-2:widgets jeff [bundler_test] $ bundle exec rake
 (in /Users/jeff/Workspace/widgets)
 rake aborted!
