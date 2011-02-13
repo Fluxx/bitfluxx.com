@@ -1210,3 +1210,10 @@ section#bio {
   font-size: 150%;
   font-style: italic;
 }
+
+/* line 20, ../_sass/screen.scss */
+#about p#author {
+  display: inline;
+  float: right;
+  margin-left: 20px;
+}
