@@ -17,6 +17,7 @@ GEM
     rack-jekyll (0.3.5)
       jekyll
       rack
+    rack-rewrite (1.0.2)
     syntax (1.0.0)
 
 PLATFORMS
@@ -24,3 +25,4 @@ PLATFORMS
 
 DEPENDENCIES
   rack-jekyll
+  rack-rewrite (~> 1.0.0)
