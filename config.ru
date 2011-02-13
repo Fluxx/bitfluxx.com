@@ -2,7 +2,7 @@ require "rack/jekyll"
 require "rack-rewrite"
 
 ENV['RACK_ENV'] ||= 'development'
-ENV['SITE_URL'] ||= 'bltfluxx.com'
+ENV['SITE_URL'] ||= 'bitfluxx.com'
 
 use Rack::Rewrite do
 
