@@ -1,0 +1,18 @@
+---
+layout: post
+title: New Beginnings
+---
+
+Back in late 2007, my girlfriend and I started a hobby web/content development company called "GLUEinteractive":http://gluei.com.  We had been doing off and on side jobs for a while, so with GLUEinteractive we decided to "make it official" and create a website for our work.
+
+Shortly after I finished the website, I was introduced to Ruby by a coworker.  He gave me the "pickaxe book":http://pragprog.com/titles/ruby/programming-ruby to read, and I've never looked back.  Aside to my enjoyment of the language itself, Ruby's community is spectacular.  It's full of projects where Rubyists came together and solved problems in an organized way.  "Rack":http://rack.rubyforge.org/, for example, standardized the web server interface for nearly all Ruby applications.  "Rake":http://rake.rubyforge.org/ is the de facto build tool for Ruby projects. "Bundler":http://gembundler.com/ made dependency resolution sane. "Rubygems":http://rubygems.org itself is another great example.  Smart people collaborated with other smart people to create software that solved common problems.  And now all ruby developers can, and most importantly _do_, leverage that work.
+
+Consequently, this blog is built upon some very awesome projects:
+
+* "Jekyll":https://github.com/mojombo/jekyll allows me to write simple layout and view templates, my blog posts in textile and it does the boring task of generating HTML.
+* "Compass":https://github.com/chriseppstein/compass is a CSS framework built upon SASS, which lets me write CSS in a organized and reusable DSL, while Compass generates the CSS.
+* "Heroku":http://www.heroku.com, basically Ruby/Rails app hosting in the cloud, hosts this blog (currently for free).
+
+I've all but stopped doing freelance work, but still want to blog about software development - so I felt like it was time to start anew with my own blog.  I'll likely be moving some posts over to here and eventually decommissioning GLUEinteractive.  I promise to blog at least weekly, but hopefully more often. Expect content about software engineering, web development and ruby, plus other topics as I find them interesting.
+
+_Stay tuned!_

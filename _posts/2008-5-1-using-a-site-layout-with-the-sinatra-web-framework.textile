@@ -1,0 +1,28 @@
+---
+layout: post
+title: Using a Site Layout with the Sinatra Web Framework
+---
+
+The Sinatra web framework is very elegant, yet powerful. Once installed, all you have to do is map urls coming to Ruby functions, inside of which you can write ruby code to do just about anything.
+
+{% highlight ruby %}
+get '/' do
+  haml :index
+end
+{% endhighlight %}
+
+In this exampple, it uses Sinatra's built in haml function to run the @./views/index.haml@ template.  But you can add whatever ruby code inside the functions you want, such as "hello world," ActiveRecord or accept a form POST.
+
+The one thing missing was the ability to have a sitewide layout, that would wrap the output from your routing. I searched the "Sinatra documentation":http://www.sinatrarb.com/docs/sinatra/index.html over and over, finally finding the "layout function":http://www.sinatrarb.com/docs/sinatra/files/lib/sinatra_rb.html#M000099.  There wasn't much there, but playing around with the code I managed to figure out how it works.
+
+By default, Sintara will look for a @./views/layout.ext@ file to use as a template, where "ext" is replaced with your templating-system specific extenstion. For instance, if you're using "erb":http://www.ruby-doc.org/stdlib/libdoc/erb/rdoc/ it's @layout.erb@ and if it's "haml":http://haml.hamptoncatlin.com/ you use @layout.haml@. If you just return markup with your route, it will not use any template file.
+
+Now, if you want to use a different layout than the standard one, you'll have to specify that in your template function like so.
+
+{% highlight ruby %}
+haml :index, {:layout => :special}
+{% endhighlight %}
+
+That's it!
+
+Hope this helps some people trying to figure out layouts in Sinatra.

@@ -1,0 +1,31 @@
+---
+layout: post
+title: Using jQuery Inside Your Firefox Extension
+---
+
+For a project at work we've been building a Firefox extension. It's slow, tedious work, with lots of time spent in the breakpointer functionality of "Venkman":http://www.mozilla.org/projects/venkman/. Thankfully Firefox extensions are basically javascript, and as I heard rumors of, you can embed "jQuery":http://jquery.com/ inside of one.
+
+How? Well it's quite simple. In your overlay.xul file, just include it like you would any other js file.
+
+{% highlight javascript %}
+<script type="application/x-javascript" src="chrome://extensionname/content/jquery-1.2.6.min.js" />
+{% endhighlight %}
+
+Yup, that's it! Now you have access to all the usual jQuery functionality like @element.click()@, @element.attr()@ and even the @$.ajax@ calls, all within the scope of your extension. Thus, you can write extension code like this:
+
+{% highlight javascript %}
+$('.toggle').attr('disabled', true);
+{% endhighlight %}
+
+Where it will select all XUL elements in your extension with the class toggle and set the disabled attribute to true.
+
+If you want to have access to the browser DOM, you can access it via the "@document.defaultView@":https://developer.mozilla.org/en/DOM/document.defaultView attriute globally.  Most times the defaultView variable is available inside of the event object if you've bound to one. Then, in order to effect the browser DOM, all you have to do is make use of the (often ignored) 2nd parameter of the "@$ function@":http://docs.jquery.com/Core/jQuery#expressioncontext, the context you'd like jQuery to work in.
+
+In our case it's the browser's DOM.  For example, to highlight all links on the page that are @rel=nofollow@, you just have to do this:
+
+{% highlight javascript %}
+doc = document.defaultView;
+jQuery("a[rel='nofollow']", doc).css({border: 'dotted 1px red', backgroundColor: 'pink'});
+{% endhighlight %}
+
+Now you have the power!

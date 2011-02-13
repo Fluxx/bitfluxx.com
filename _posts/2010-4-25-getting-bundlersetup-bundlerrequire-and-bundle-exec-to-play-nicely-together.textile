@@ -1,0 +1,48 @@
+---
+layout: post
+title: Getting Bundler.setup, Bundler.require and bundle exec to Play Nicely Together
+---
+
+Once I upgraded by install of "Bundler":http://gembundler.com/ this morning and decided to try locking my @Gemfile@ in my latest freelance project.  Everything was going well until I experienced the following:
+
+{% highlight ruby %}
+jefflaptop-2:widgets jeff [bundler_test] $ bundle exec rake
+(in /Users/jeff/Workspace/widgets)
+rake aborted!
+no such file to load -- bundler
+/Users/jeff/Workspace/widgets/Rakefile:2:in `require'
+(See full trace by running task with --trace)
+{% endhighlight %}
+
+That's weird.  I ran @bundle exec rake@, and rake is apparently looking for...the bundler?
+
+After some further digging and "uncovering a bug in Bundler":http://github.com/carlhuda/bundler/issues#issue/246, I finally straightened everything out.  Before I get in to the details, read the documentation over at the "Bunder's website":http://gembundler.com/ as a primer.  It will help make sense for everything.
+
+So in the Bundler's documentation, they tell you to put this at the top of your Ruby file in order to setup the Bundler and have it manage all your Gem resolution:
+
+{% highlight ruby %}
+require "rubygems"
+require "bundler"
+Bundler.setup
+{% endhighlight %}
+
+This code requires rubygems and the bundler gem, and by calling @Bundler.setup@, you have Bundler setup all your loadpaths and do dependency resolution for you.  This is great, and t works as advertised.  You still have to *require* the gems, i.e. @require dm-core@,  and Bundler even offers a method, @Bundler.require@ to do that for you.
+
+The tricky bit comes when you need to rely on bundled gems that have associated bin files, i.e. rake or spec.  How do you run those gem bins, if bundler is bundling them for you and they're not being installed on the system?  Simple, Bundler offers a @bundle exec _your_program_@ command, that will load up the bundler environment for you, before executing @your_program@. For example, to run rake (assuming rake is bundled in your @Gemfile@), you just run @bundle exec rake@, and everything is happy.
+
+Let me ask you a question: based on how the Bundler works, what Bundler code do you put at the top of your Rakefile?  You would assume it would be the usual setup code:
+
+{% highlight ruby %}
+require "rubygems"
+require "bundler"
+Bundler.setup
+{% endhighlight %}
+
+And you'd be wrong.
+
+The subtle thing about @bundle exec@, is that it basically does the 3 lines of code above _for you_.   When I added those 3 lines above to my @Rakefile@, the @require "bundler"@@ failed because I had essentially already run @Bundler.setup@, so bundler was managing all my dependencies.  Since I hadn't added the bundler gem to my @Gemfile@, it wasn't put in my load path by the Bundler, thus I received my load error.
+
+The punchline through all of this is this: if you have a file that is going to be executed by @bundle exec@, you can leave those 3 lines of code out completely and everything will be totally happy.  This includes ruby files, i.e. @bundle exec ruby my_program.rb@.  Just assume the first line of code in your file will already have their loadpaths figured out and all you have to do is start requiring stuff.
+
+In general though, I would avoid putting the 3 lines of setup in any program or lib you are going to write, even ones not run with @bundle exec@.  Rubygems, but _especially_ the bundler, are a way to manage dependencies for your application.  You shouldn't assume that a user of your lib is going to use Bundler to manage their dependencies.  As <a href="http://tomayko.com/writings/require-rubygems-antipattern">Ryan Tomayko says</a>, even @require "rubygems"@ is a bad assumption.  What I use to manage my @$LOAD_PATH@ is my concern, not yours as the library writer.
+
