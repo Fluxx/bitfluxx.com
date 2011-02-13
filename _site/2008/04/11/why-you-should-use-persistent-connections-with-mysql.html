@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Why You Should Use Persistent Connections with MySQL - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>Why You Should Use Persistent Connections with MySQL</h1>
+    <p><time datetime="" pubdate>Written 11 Apr 2008</time></p>
+  </header>
+
+  <p>If you do a search at Google for <a href="http://www.google.com/search?hl=en&amp;client=firefox-a&amp;rls=org.mozilla%3Aen-US%3Aofficial&amp;hs=3F0&amp;q=connecting+to+MySQL+PHP&amp;btnG=Search">connecting to MySQL with <span class="caps">PHP</span></a>, every single tutorial you&#8217;ll find uses the <a href="http://www.php.net/manual/en/function.mysql-connect.php"><code>mysql_connect()</code></a> function.  This makes total sense really, since it is the defacto-standard connection function for <span class="caps">PHP</span>.  And for most applications (read: low-volume) it works well, and most developers never have a problem with it.  You can start to run in to problems when your site starts getting traffic.</p>
+<p>This same problem recently happened at my day job.  Our current site was mostly coded by the previous head developer, who more-or-less designed, developed and coded the entire thing himself.  While this is an amazing feat to say the least, the site just wasn&#8217;t coded as efficiently as it could be.  The old developer just didn&#8217;t have time or expertise with CakePHP to do a thorough and efficient job.  A lot of the pages on the site generated lots MySQL queries, often times in the triple-digits.  Initially we didn&#8217;t really notice a problem with the site.  Sometimes things were slow, but because our traffic was relatively low and we were on very high-performance hardware, speed and efficiency wasn&#8217;t an issue.</p>
+<p>That&#8217;s changed over the last year, however.  Our traffic grew by about 40%, tables were getting bigger with more rows.  As such, our site was starting to slow down.  I did what I could optimizing pages to minimize the load on the database, but things were still slow.  Watching the load on the database server, it would often spike to 8-10 with 90% <span class="caps">CPU</span> usage.  Not good.</p>
+<p>It&#8217;s about that time that I decided to look in to persistent connections.  In a nutshell, persistent connections keep (Apache&#8217;s) connections to the database open even after the data transfer has ended.  Database connections and closes are expensive for the database, so keeping them around (making them persistent) to reuse instead is where you get your performance imporvement.</p>
+<p>Happy with my research, I decided to give it a shot.  I switched over our <code>mysql_connect()</code> to <a href="http://www.php.net/manual/en/function.mysql-pconnect.php"><code>mysql_pconnect()</code></a>, restarted our database &amp; web server and waited.  The results were magical.  Load &amp; <span class="caps">CPU</span> usage on the DB server lowered, the load on the web server lowered and the site was at least 2-4 times faster.  Awesome.</p>
+<p>Persistent connections are faster than normal connections.  So please use them.</p>
+<h2>Some things to think about</h2>
+<p>This isn&#8217;t to say that persistent connections don&#8217;t come with their own set of problems.  There are a few things that you&#8217;ll need to consider when using persistent connections.</p>
+<ul>
+	<li>Transactions &#8211; Since the connection to MySQL is continually open, if an Apache process begins a transaction and it never commits or rolls back, all of the mysql queries that particular connection does will be considered part of that same transaction.  This is bad.  You can solve this by creating a <code>register_shutdown_function()</code> that does a database rollback.  The <a href="http://www.php.net/manual/en/features.persistent-connections.php"><span class="caps">PHP</span> manual page on persistent database connections</a> has a fair amount about this.</li>
+	<li>Open Threads &#8211; Since you&#8217;re only going to have a limited number of MySQL connections open at a time, you have to be careful not to run in to a situation where Apache is utilizing all your current database connections and it then tries to connect to MySQL again.  There won&#8217;t be an available MySQL connection for it, and thus Apache will be blocked and has to wait until it can serve the request.  Just make sure that there is always slightly more database threads than Apache threads.</li>
+	<li>mod_php &#8211; Persistent connections are only supported if you&#8217;re using <span class="caps">PHP</span> in the mod_php variety, and not the <span class="caps">CGI</span> wrapper.  Most shared hosts and default <span class="caps">PHP</span> setups use mod_php, so you should be in the clear with this.</li>
+</ul>
+<p>In general, though, persistent connections are pretty safe.  Give them a shot on your web app and see how it preforms.</p>
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

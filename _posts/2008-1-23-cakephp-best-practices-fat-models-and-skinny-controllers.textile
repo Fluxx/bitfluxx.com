@@ -1,0 +1,50 @@
+---
+layout: post
+title: "CakePHP Best Practices: Fat Models and Skinny Controllers"
+---
+
+Since I've been doing a lot of "Rails":http://www.rubyonrails.org/ work, I've been doing a lot of reading on Rails and MVC frameworks best practices.  One of the base principals the Rails community that I've come across more than once is the "Fat models and skinny controllers" methodology.  Say what?  Let me tell you.
+
+When you first start working with MVC frameworks, you're first instinct is to put nearly all your code in the controller.  It makes sense really - it's the first line of defense when someone runs a function on your site and it has direct access to the model & all of its useful helper functions.
+
+The problem with this methodology rears its head after a few days of coding.  Your models are still very skinny, but your controllers end up being hundreds of lines long. They're "fat", full of lines and lines of code like this...
+
+{% highlight php %}
+$review_cond = "Review.model = 'Artist' AND Review.foreign_key = '$id'";
+$reviews = $this->Artist->Review->findAll($review_cond, "Review.id, Review.review, Review.score, Review.created, User.id, User.name", "Review.created DESC", 5, null, 0);
+foreach ($reviews as $review) {
+    $this->mrClean->cleanArray($review['Review']['review']);
+}
+$this->set('reviews', $reviews);
+$this->set('other_reviews', $this->Artist->Review->findCount($review_cond)-5);
+{% endhighlight %}
+
+Good code should be easy to read and should communicate intent quickly.  That code does neither.  I actually wrote the code above a long time ago and it took me 2 minutes just now to figure out what that code did!  That's not good.  Now imagine if you had a coworker or someone else tried to read that code?  They'd be at a total loss.
+
+While Cake's built in model functions like @findAll()@ are nice and very helpful (we'll still use them when we recode this), when you fill their parameters chaulk full of hard to read arrays and long strings, all meaning of what that line of controller-code does goes out the window.
+
+The answer to fat controllers is to make your model fat instead.  The model is supposed to represent some object.  In the above code sample we're trying to get an Artist's most recent reviews, so we should be asking the Artist model to do that for us.
+
+With that in mind, here is the same functionality achieved from the previous example put in the Artist model...
+
+{% highlight php %}
+function getRecentReviews($number = 5, $sort = "created DESC") {
+    $conditions = "Review.model = 'Artist' AND Review.foreign_key = '".$this->id."'";
+    $fields = "Review.id, Review.review, Review.score, Review.created, User.id, User.name";
+    $this->Review->recursive = -1;
+    return $this->Review->findAll($conditions, $fields, $this->name.".$sort", $number);
+}
+{% endhighlight %}
+
+Then in your controller, the only code you need to write is...
+
+{% highlight php %}
+$this->Artist->getRecentReviews(5);
+{% endhighlight %}
+
+
+Muuuuuuuuch simpler.  Anyone coming along can easily tell what that section of code in the controller is doing - simply by reading the name of the function.  This is what people are talking about then they say code is "self documenting" - the name of the function tells you what the code is doing.  The same code that was in the controller is still there and now in the model.  By putting it there, it forces you to think how to abstract its functionality & makes it reusable for the future.
+
+Skinny controllers and fat models "isn't exactly a new idea":http://cakebaker.42dh.com/#post-562 in the CakePHP world, but it is one that's facing slow adoption.  As I see it, the main reason for the lack adoption is the absence of model behaviors and focus on controller components in the current stable version of Cake (1.1).  Without some custom coding, there really isn't a way to quicky and easily utilize 3rd party code to extend your model and inherit additional functionality.  Thus, you think of models only as a place to declare associations and validation.
+
+People coding in 1.1 still make heavy use of components and as such get used to putting a large portion of their code in the controller.  That will change as 1.1 gives way to 1.2, and CakePHP and its community evolve in to a more robust and adult web framework, but for right now try your hardest to have fat models and skinny controllers.

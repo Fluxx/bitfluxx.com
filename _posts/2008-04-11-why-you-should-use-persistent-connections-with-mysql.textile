@@ -1,0 +1,26 @@
+---
+layout: post
+title: Why You Should Use Persistent Connections with MySQL
+---
+
+If you do a search at Google for "connecting to MySQL with PHP":http://www.google.com/search?hl=en&client=firefox-a&rls=org.mozilla%3Aen-US%3Aofficial&hs=3F0&q=connecting+to+MySQL+PHP&btnG=Search, every single tutorial you'll find uses the "@mysql_connect()@":http://www.php.net/manual/en/function.mysql-connect.php function.  This makes total sense really, since it is the defacto-standard connection function for PHP.  And for most applications (read: low-volume) it works well, and most developers never have a problem with it.  You can start to run in to problems when your site starts getting traffic.
+
+This same problem recently happened at my day job.  Our current site was mostly coded by the previous head developer, who more-or-less designed, developed and coded the entire thing himself.  While this is an amazing feat to say the least, the site just wasn't coded as efficiently as it could be.  The old developer just didn't have time or expertise with CakePHP to do a thorough and efficient job.  A lot of the pages on the site generated lots MySQL queries, often times in the triple-digits.  Initially we didn't really notice a problem with the site.  Sometimes things were slow, but because our traffic was relatively low and we were on very high-performance hardware, speed and efficiency wasn't an issue.
+
+That's changed over the last year, however.  Our traffic grew by about 40%, tables were getting bigger with more rows.  As such, our site was starting to slow down.  I did what I could optimizing pages to minimize the load on the database, but things were still slow.  Watching the load on the database server, it would often spike to 8-10 with 90% CPU usage.  Not good.
+
+It's about that time that I decided to look in to persistent connections.  In a nutshell, persistent connections keep (Apache's) connections to the database open even after the data transfer has ended.  Database connections and closes are expensive for the database, so keeping them around (making them persistent) to reuse instead is where you get your performance imporvement.
+
+Happy with my research, I decided to give it a shot.  I switched over our @mysql_connect()@ to "@mysql_pconnect()@":http://www.php.net/manual/en/function.mysql-pconnect.php, restarted our database & web server and waited.  The results were magical.  Load & CPU usage on the DB server lowered, the load on the web server lowered and the site was at least 2-4 times faster.  Awesome.
+
+Persistent connections are faster than normal connections.  So please use them.
+
+h2. Some things to think about
+
+This isn't to say that persistent connections don't come with their own set of problems.  There are a few things that you'll need to consider when using persistent connections.
+
+* Transactions - Since the connection to MySQL is continually open, if an Apache process begins a transaction and it never commits or rolls back, all of the mysql queries that particular connection does will be considered part of that same transaction.  This is bad.  You can solve this by creating a @register_shutdown_function()@ that does a database rollback.  The "PHP manual page on persistent database connections":http://www.php.net/manual/en/features.persistent-connections.php has a fair amount about this.
+* Open Threads - Since you're only going to have a limited number of MySQL connections open at a time, you have to be careful not to run in to a situation where Apache is utilizing all your current database connections and it then tries to connect to MySQL again.  There won't be an available MySQL connection for it, and thus Apache will be blocked and has to wait until it can serve the request.  Just make sure that there is always slightly more database threads than Apache threads.
+* mod_php - Persistent connections are only supported if you're using PHP in the mod_php variety, and not the CGI wrapper.  Most shared hosts and default PHP setups use mod_php, so you should be in the clear with this.
+
+In general, though, persistent connections are pretty safe.  Give them a shot on your web app and see how it preforms.

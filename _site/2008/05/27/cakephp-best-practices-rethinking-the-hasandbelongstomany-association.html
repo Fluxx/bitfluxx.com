@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CakePHP Best Practices: Rethinking the hasAndBelongsToMany Association - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>CakePHP Best Practices: Rethinking the hasAndBelongsToMany Association</h1>
+    <p><time datetime="" pubdate>Written 27 May 2008</time></p>
+  </header>
+
+  <p>When you&#8217;re first learning about CakePHP (or any kind of <span class="caps">MVC</span> associations), the hasAndBelongsToMany relationship is a powerful one.  In a nutshell, it allows you to associate one model to another, without making it an exclusive association.  So for example&#8230;if you&#8217;re building a tagging system for your bloging platform, a Post  hasAndBelongsToMany Tags.  The <a href="http://manual.cakephp.org/chapter/models">CakePHP manual chapter on models</a> has more information if you&#8217;re still a little confused.</p>
+<p>And in most cases, this association works well.  You define a &#8220;join table&#8221; that contains 2 fields, as in our blogging example, a <code>post_id</code> and <code>tag_id</code> columns.  Thanks to Cake&#8217;s built in framework code to handle this association, you&#8217;re up and running in no time.</p>
+<p>But what happens when you need to store more information about the association?  For example, imagine if you&#8217;re building an online ordering system.  Orders can contain multiple products, so you&#8217;ll need to say that an Order hasAndBelongsToMany Item.  But each Item/Order association also needs to have some other ancillary information &#8211; such as the price the customer paid for that item on that order.  With the traditional hasAndBelongsToMany relationship, you can&#8217;t do that.</p>
+<p>To solve this, we&#8217;re going to borrow from Rails once again, utilizing the principal of their <code>hasMany :through</code> functionality.</p>
+<p>Basically, we&#8217;re going to upgrade our hasAnyBelongsToMany association and put a full fledged model as the join.  So rather than having just a join table that associates two models, we&#8217;re going to put a real model in between and associate the two other models to it.  As in above case of our online ordering system, we&#8217;ll stick a <code>LineItem</code> model in between.</p>
+<p>First, lets define our Order model.</p>
+<div class="highlight"><pre><code class="php"><span class="x">class Order extends AppModel {</span>
+
+<span class="x">  var $name = &#39;Order&#39;;</span>
+<span class="x">  var $hasMany = array(&#39;LineItem&#39;);</span>
+<span class="x"> </span>
+<span class="x">}</span>
+</code></pre>
+</div><p>Now our Item model.</p>
+<div class="highlight"><pre><code class="php"><span class="x">class Item extends AppModel {</span>
+
+<span class="x">  var $name = &#39;Item&#39;;</span>
+<span class="x">  var $hasMany = array(&#39;LineItem&#39;);</span>
+<span class="x"> </span>
+<span class="x">}</span>
+</code></pre>
+</div><p>Note that an Order &amp; Item hasMany LineItem?  Well here is the LineItem model.</p>
+<div class="highlight"><pre><code class="php"><span class="x">class LineItem extends AppModel {</span>
+
+<span class="x">    var $name = &#39;LineItem&#39;;</span>
+<span class="x">    var $belongsTo = array(&#39;Order&#39;, &#39;Item&#39;);</span>
+
+<span class="x">}</span>
+</code></pre>
+</div><p>Basically, now an Order has many LineItems.  And each Item is also has many LineItems.  Conversly, each LineItem belongs to an Order and an Item.</p>
+<p>The cool part about is that since your &#8220;join table&#8221; is now a full fledged model, you get all the things that come with a model &#8211; like a real database table, other associations, attributes, primary keys, etc.  Adding that &#8220;price&#8221; attribute for each Item joined to an Order is as simple as adding a <code>price</code> column to the <code>line_items</code> table.</p>
+<p>With this method, however, comes some lack of convenience.  With the default Cake hasAndBelongsToMany relationship, if you want to save an Order and all its associated tags, you just add an input field (like a multiple select) with <code>data[Item][Item]</code> in the Post form, and Cake does the rest.</p>
+<p>With this new method, you can still have the multiple select in your Order add form, but you&#8217;ll have to add some extra code to handle the incoming <code>data[Item][Item]</code> data and save an associated LineItem models.  It&#8217;s just a little bit of overhead, but well worth the flexibility you get with the hasMany :through method.</p>
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

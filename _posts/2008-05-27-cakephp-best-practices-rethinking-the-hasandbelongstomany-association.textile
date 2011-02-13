@@ -1,0 +1,55 @@
+---
+layout: post
+title: "CakePHP Best Practices: Rethinking the hasAndBelongsToMany Association"
+---
+
+When you're first learning about CakePHP (or any kind of MVC associations), the hasAndBelongsToMany relationship is a powerful one.  In a nutshell, it allows you to associate one model to another, without making it an exclusive association.  So for example...if you're building a tagging system for your bloging platform, a Post  hasAndBelongsToMany Tags.  The "CakePHP manual chapter on models":http://manual.cakephp.org/chapter/models has more information if you're still a little confused.
+
+And in most cases, this association works well.  You define a "join table" that contains 2 fields, as in our blogging example, a @post_id@ and @tag_id@ columns.  Thanks to Cake's built in framework code to handle this association, you're up and running in no time.
+
+But what happens when you need to store more information about the association?  For example, imagine if you're building an online ordering system.  Orders can contain multiple products, so you'll need to say that an Order hasAndBelongsToMany Item.  But each Item/Order association also needs to have some other ancillary information - such as the price the customer paid for that item on that order.  With the traditional hasAndBelongsToMany relationship, you can't do that.
+
+To solve this, we're going to borrow from Rails once again, utilizing the principal of their @hasMany :through@ functionality.
+
+Basically, we're going to upgrade our hasAnyBelongsToMany association and put a full fledged model as the join.  So rather than having just a join table that associates two models, we're going to put a real model in between and associate the two other models to it.  As in above case of our online ordering system, we'll stick a @LineItem@ model in between.
+
+First, lets define our Order model.
+
+{% highlight php %}
+class Order extends AppModel {
+
+  var $name = 'Order';
+  var $hasMany = array('LineItem');
+ 
+}
+{% endhighlight %}
+
+Now our Item model.
+
+{% highlight php %}
+class Item extends AppModel {
+
+  var $name = 'Item';
+  var $hasMany = array('LineItem');
+ 
+}
+{% endhighlight %}
+
+Note that an Order & Item hasMany LineItem?  Well here is the LineItem model.
+
+{% highlight php %}
+class LineItem extends AppModel {
+
+    var $name = 'LineItem';
+    var $belongsTo = array('Order', 'Item');
+
+}
+{% endhighlight %}
+
+Basically, now an Order has many LineItems.  And each Item is also has many LineItems.  Conversly, each LineItem belongs to an Order and an Item.
+
+The cool part about is that since your "join table" is now a full fledged model, you get all the things that come with a model - like a real database table, other associations, attributes, primary keys, etc.  Adding that "price" attribute for each Item joined to an Order is as simple as adding a @price@ column to the @line_items@ table.
+
+With this method, however, comes some lack of convenience.  With the default Cake hasAndBelongsToMany relationship, if you want to save an Order and all its associated tags, you just add an input field (like a multiple select) with @data[Item][Item]@ in the Post form, and Cake does the rest.
+
+With this new method, you can still have the multiple select in your Order add form, but you'll have to add some extra code to handle the incoming @data[Item][Item]@ data and save an associated LineItem models.  It's just a little bit of overhead, but well worth the flexibility you get with the hasMany :through method.
