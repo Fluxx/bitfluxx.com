@@ -63,6 +63,11 @@
 <p>The punchline through all of this is this: if you have a file that is going to be executed by <code>bundle exec</code>, you can leave those 3 lines of code out completely and everything will be totally happy.  This includes ruby files, i.e. <code>bundle exec ruby my_program.rb</code>.  Just assume the first line of code in your file will already have their loadpaths figured out and all you have to do is start requiring stuff.</p>
 <p>In general though, I would avoid putting the 3 lines of setup in any program or lib you are going to write, even ones not run with <code>bundle exec</code>.  Rubygems, but <em>especially</em> the bundler, are a way to manage dependencies for your application.  You shouldn&#8217;t assume that a user of your lib is going to use Bundler to manage their dependencies.  As <a href="http://tomayko.com/writings/require-rubygems-antipattern">Ryan Tomayko says</a>, even <code>require "rubygems"</code> is a bad assumption.  What I use to manage my <code>$LOAD_PATH</code> is my concern, not yours as the library writer.</p>
 </article></section>
-    
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
   </body>
 </html>
