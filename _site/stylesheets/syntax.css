@@ -59,5 +59,5 @@
 .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
 
 p code, .highlight { background: #F4F4F4; }
-.highlight { border: 1px solid #D8D8D8; margin-bottom: 1.5em; }
+.highlight { border: 1px solid #D8D8D8; margin-bottom: 1.5em; overflow-x: auto; }
 .highlight pre { margin: 1em; }
