@@ -26,5 +26,6 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  jekyll
   rack-jekyll
   rack-rewrite (~> 1.0.0)
