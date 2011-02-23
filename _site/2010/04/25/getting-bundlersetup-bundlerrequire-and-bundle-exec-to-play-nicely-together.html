@@ -37,12 +37,12 @@
   </header>
 
   <p>Once I upgraded by install of <a href="http://gembundler.com/">Bundler</a> this morning and decided to try locking my <code>Gemfile</code> in my latest freelance project.  Everything was going well until I experienced the following:</p>
-<div class="highlight"><pre><code class="ruby"><span class="n">jefflaptop</span><span class="o">-</span><span class="mi">2</span><span class="ss">:widgets</span> <span class="n">jeff</span> <span class="o">[</span><span class="n">bundler_test</span><span class="o">]</span> <span class="err">$</span> <span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rake</span>
-<span class="p">(</span><span class="k">in</span><span class="sr"> /Users/</span><span class="n">jeff</span><span class="o">/</span><span class="no">Workspace</span><span class="o">/</span><span class="n">widgets</span><span class="p">)</span>
-<span class="n">rake</span> <span class="n">aborted!</span>
-<span class="n">no</span> <span class="n">such</span> <span class="n">file</span> <span class="n">to</span> <span class="nb">load</span> <span class="o">--</span> <span class="n">bundler</span><span class="sr"></span>
-<span class="sr">/Users/</span><span class="n">jeff</span><span class="o">/</span><span class="no">Workspace</span><span class="o">/</span><span class="n">widgets</span><span class="o">/</span><span class="no">Rakefile</span><span class="p">:</span><span class="mi">2</span><span class="ss">:in</span> <span class="sb">`require&#39;</span>
-<span class="sb">(See full trace by running task with --trace)</span>
+<div class="highlight"><pre><code class="bash">jefflaptop-2:widgets jeff <span class="o">[</span>bundler_test<span class="o">]</span> <span class="nv">$ </span>bundle <span class="nb">exec </span>rake
+<span class="o">(</span>in /Users/jeff/Workspace/widgets<span class="o">)</span>
+rake aborted!
+no such file to load -- bundler
+/Users/jeff/Workspace/widgets/Rakefile:2:in <span class="sb">`</span>require<span class="err">&#39;</span>
+<span class="o">(</span>See full trace by running task with --trace<span class="o">)</span>
 </code></pre>
 </div><p>That&#8217;s weird.  I ran <code>bundle exec rake</code>, and rake is apparently looking for&#8230;the bundler?</p>
 <p>After some further digging and <a href="http://github.com/carlhuda/bundler/issues#issue/246">uncovering a bug in Bundler</a>, I finally straightened everything out.  Before I get in to the details, read the documentation over at the <a href="http://gembundler.com/">Bunder&#8217;s website</a> as a primer.  It will help make sense for everything.</p>
