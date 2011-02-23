@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rspec Encoding Matchers for Ruby 1.9 - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>Rspec Encoding Matchers for Ruby 1.9</h1>
+    <p><time datetime="" pubdate>Written 22 Feb 2011</time></p>
+  </header>
+
+  <p>Yesterday I released a simple gem that adds RSpec custom matchers for Ruby encodings.  It&#8217;s got the amazingly creative title of <a href="https://github.com/fluxx/rspec-encoding-matchers">rspec-encoding-matchers</a>.  It&#8217;s nothing fancy, but does make it easy to test the encoding of strings in RSpec and Ruby 1.9.</p>
+<p>The gem adds a couple matchers.  There is the simple matcher to check if a string is encoded in the right encoding:</p>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># Matcher takes the name of a supported Ruby encoding as a string or symbol</span>
+<span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_encoded_as</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+</code></pre>
+</div><p>Or there is also a long list of <code>be_xxxxxxx_encoded</code> matchers to check if a string is of a certain encoding:</p>
+<div class="highlight"><pre><code class="ruby"><span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_binary_encoded</span>
+<span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_stateless_iso_2022_jp_encoded</span>
+<span class="c1"># ...repeat for all supported Ruby encodings</span>
+</code></pre>
+</div><p>The full list of 163 matchers is available <a href="https://github.com/Fluxx/rspec-encoding-matchers/blob/master/README.md">in the readme</a>.</p>
+<p>To use the custom matchers in your specs, simply include the matcher module either in an example group:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="s2">&quot;my group&quot;</span> <span class="k">do</span>
+  <span class="kp">include</span> <span class="no">RspecEncodingMatchers</span>
+  <span class="n">it</span> <span class="s2">&quot;is encoded in UTF-8&quot;</span> <span class="k">do</span>
+    <span class="n">hello</span><span class="o">.</span><span class="n">should</span> <span class="n">be_encoded_as</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>Or you can include the module in your RSpec configuration.</p>
+<div class="highlight"><pre><code class="ruby"><span class="c1"># spec_helper.rb</span>
+<span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">color_enabled</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">include</span> <span class="no">RSpecEncodingMatchers</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

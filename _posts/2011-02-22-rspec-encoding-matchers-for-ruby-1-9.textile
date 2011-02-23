@@ -1,0 +1,44 @@
+---
+layout: post
+title: Rspec Encoding Matchers for Ruby 1.9
+---
+
+Yesterday I released a simple gem that adds RSpec custom matchers for Ruby encodings.  It's got the amazingly creative title of "rspec-encoding-matchers":https://github.com/fluxx/rspec-encoding-matchers.  It's nothing fancy, but does make it easy to test the encoding of strings in RSpec and Ruby 1.9.
+
+The gem adds a couple matchers.  There is the simple matcher to check if a string is encoded in the right encoding:
+
+{% highlight ruby %}
+# Matcher takes the name of a supported Ruby encoding as a string or symbol
+"my string".should be_encoded_as("UTF-8")
+{% endhighlight %}
+
+Or there is also a long list of @be_xxxxxxx_encoded@ matchers to check if a string is of a certain encoding:
+
+{% highlight ruby %}
+"my string".should be_binary_encoded
+"my string".should be_stateless_iso_2022_jp_encoded
+# ...repeat for all supported Ruby encodings
+{% endhighlight %}
+
+The full list of 163 matchers is available "in the readme":https://github.com/Fluxx/rspec-encoding-matchers/blob/master/README.md.
+
+To use the custom matchers in your specs, simply include the matcher module either in an example group:
+
+{% highlight ruby %}
+describe "my group" do
+  include RspecEncodingMatchers
+  it "is encoded in UTF-8" do
+    hello.should be_encoded_as("UTF-8")
+  end
+end
+{% endhighlight %}
+
+Or you can include the module in your RSpec configuration.
+
+{% highlight ruby %}
+# spec_helper.rb
+RSpec.configure do |config|
+  config.color_enabled = true
+  config.include RSpecEncodingMatchers
+end
+{% endhighlight %}
