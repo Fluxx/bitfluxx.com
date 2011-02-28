@@ -1,0 +1,16 @@
+---
+layout: post
+title: Taking Time to Learn Your Testing Tools
+---
+
+Last week I was listening to the Changelog podcast where they were "interviewing Scott Chacon":http://thechangelog.com/post/3445186374/episode-0-4-9-git-showoff-and-xbox-kinect-with-scott-cha.  They talked about a lot of good stuff, but one very interesting point about version control as a tool.  I was unable to find a transcript of the podcast, so this is my paraphrasing:
+
+bq. In colleges and programming education, version control isn't taught as a toolset that is important.  People see it as a necessary evil, not, "this is a tool that can make you a better developer or better at your job."  Git is more complicated (than Subversion), but it's worth learning about it.  When people learn Subversion, it's usually, "alright, here are the eight commands you need, and that's it."  But learning version control is important -- it's as important as learning your editor.  Everyone spends hours learning their editor, and people become incredibly proficient with it.  Nobody uses notepad for development, but people use Subversion like Notepad.  People don't treat it as a toolset that gives you power.
+
+It's a very valid point.  Git is more powerful than Subversion, but _in order to harness that power, you have to actually sit down and learn it._
+
+I see a similar parallel with people's attitudes on unit testing.  People learn the "eight commands" to do unit testing and feel like that's all they'll ever need.  They then often get in to situations where test suites often grow in size, complexity and time to run.  Often, codebases can get to the point where changing any functionality causes so many tests to break, way more time is spent fixing tests than actually making the change in the first place.  And at this point in their career they declare the ROI on unit testing is so low, it's not worth it.  And they stop writing unit tests.
+
+The problem I have with this mindset, is that these people often never bothered to learn about unit testing tools, techniques or styles beyond the basic set of commands and skillsets.  They're using unit testing like Notepad.  Unit testing is a tool for the developer.  Simply using it isn't going to lower your software defect rate any more than simply using a hammer is going to build you a well made house.  What matters more is how you use your tools.
+
+Really, you need to come to unit testing from the perspective of, "this is a tool.  How can I use it to make me better at my job? How are people using it successfully?  What can I learn from their ideas and experiences?  How does it fit in with my project/work style."
