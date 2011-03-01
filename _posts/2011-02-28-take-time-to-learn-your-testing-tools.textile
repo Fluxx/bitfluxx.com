@@ -11,9 +11,9 @@ It's a very valid point.  Git is more powerful than Subversion, but _in order to
 
 I see a similar parallel with peoples' overly-negative attitudes towards unit testing.  Some developers declare that unit testing is, "a waste of time."  They'll reference situations where test suites take minutes (or hours) to run, or an overly invasive test suite where changing any application code causes so many tests to break, much more time is spent fixing tests than actually making the change in the first place.
 
-The thing is...these problems are real, but they only really plague you when you first start out writing unit tests -- when you're inexperienced and writing unit tests "like Notepad."  As you grow and gain experience with your unit testing tools, you'll find these problems are totally avoidable.
+The thing is...these problems are real, but they only really plague you when you first start out writing unit tests -- when you're inexperienced with testing tools and techniques.  And most often the developers I've seen voice these complaints are the ones who haven't investing the time to learn about testing.  They're doing unit testing "like Notepad" and not as a tool that can make them better.
 
-Unit testing is a tool for the developer, no more no less.  Simply using it isn't going to lower your software defect rate any more than simply _using_ a hammer is going to build you a well made house.  It's how you use it your tools that matters.
+Unit testing is a tool for the developer, no more no less.  Simply using it isn't going to lower your software defect rate any more than simply _using_ a hammer is going to build you a well made house.  It's how you use your tools that matters.
 
 For me, I use unit testing as a tool in the following ways:
 
