@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Taking Time to Learn Your Testing Tools
+title: Take Time to Learn Your Testing Tools
 ---
 
 Last week I was listening to the Changelog podcast where they were "interviewing Scott Chacon":http://thechangelog.com/post/3445186374/episode-0-4-9-git-showoff-and-xbox-kinect-with-scott-cha.  They talked about a lot of good stuff, but one interesting point Scott made about version control struck me.  I was unable to find a transcript of the podcast, so this is my paraphrasing:
