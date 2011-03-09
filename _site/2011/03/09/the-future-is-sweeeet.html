@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>The Future is Sweeeet - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>The Future is Sweeeet</h1>
+    <p><time datetime="" pubdate>Written 09 Mar 2011</time></p>
+  </header>
+
+  <p>After a solid 2+ years, I decided it was time to upgrade my old Macbook and upgrade to a new Macbook Pro.  There wasn&#8217;t anything inherently wrong with the old laptop, other than it was&#8230;well&#8230;old, slow and had a small screen.  That, and the <a href="http://www.apple.com/macbookpro/">new Macbook Pros</a> came out recently and I figured now was a good time to pick one up.</p>
+<p>Per the suggestion of a coworker, I ditched the superdrive and put in its place a small 125GB <span class="caps">SSD</span> drive.  The <span class="caps">SSD</span> drive is my main drive, which holds the OS and most of my working files.  The old &#8220;spinning&#8221; drive holds big files &#8211; movies, music, databases, etc &#8211; and unless I&#8217;m actually using it, the drive sits dormant.  The result is <em>blazing</em> fast random I/O and extended battery life.  It&#8217;s pretty sweet.</p>
+<p>When I first got my old macbook, I had set it up by restoring from a time machine volume I kept for my old-old Macbook (first-gen 13&quot; white).  The restore was painless and amazingly thorough.  Not only did it preserve all my files and application, it even left the desktop icons arranged in the same location.  In about 45 minutes I was able to have my old setup on new hardware.</p>
+<p>This time around, that wasn&#8217;t a possibility.  The <span class="caps">SSD</span> drive was smaller than the HD on my old Macbook, thus restoring the files wasn&#8217;t a real possibility.  But more importantly, I wanted to start fresh.  Namely, I wanted to try <a href="http://mxcl.github.com/homebrew/">Homebrew</a> instead of <a href="http://www.macports.org/">Macports</a> and <a href="http://www.zsh.org/">zsh</a> as opposed to <a href="http://www.gnu.org/software/bash/">bash</a>.</p>
+<p>Best decision ever.</p>
+<p>The story on Homebrew is, while Macports is done with port files, shell scripts and <span class="caps">SVN</span>, Homebrew is written in Ruby and Git.  Packages are <a href="https://github.com/mxcl/homebrew/blob/master/Library/Formula/ruby.rb">simple Ruby <span class="caps">DSL</span> files</a> and installed to <code>/usr/local</code>, self-contained in a folder with the same name as the package.  And since it&#8217;s just a Git repository, you can easily commit fixes, new packages or even checkout a revision containing the exact version of a package you want.  Oh and installation takes mere seconds, as opposed to Macport&#8217;s 5-45 minutes.</p>
+<p>zsh is a shell, like bash, but with a few enhancements.  It has a lot of functionality, but the main reason I installed it was cause of <a href="https://github.com/robbyrussell/oh-my-zsh">oh my zsh</a>.  It&#8217;s a &#8220;community driven framework for managing your zsh configuration.&#8221;  The main appeal is its <a href="https://wiki.github.com/robbyrussell/oh-my-zsh/themes">large collection of themes</a> and  <a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">plugins</a>, many of which will print out your version of ruby (if using <span class="caps">RVM</span>), current git branch (with notification of uncommitted changes) and lots of other goodies.</p>
+<p>I decided to try an <span class="caps">SSD</span> drive, Homebrew and zsh on the suggestion of a couple coworkers.  It&#8217;s not that I didn&#8217;t know about both of these technologies before; it&#8217;s more that I never gave them a serious look.  Spinning disks, Macports and bash had been working alright for me, and I was comfortable with them and thus had no reason to change.  Yet, had I known how much power, time and sanity they would save me, I would have made the switch sooner.</p>
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

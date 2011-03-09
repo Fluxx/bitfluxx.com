@@ -1,0 +1,20 @@
+---
+layout: post
+title: The Future is Sweeeet
+---
+
+After a solid 2+ years, I decided it was time to upgrade my old Macbook and upgrade to a new Macbook Pro.  There wasn't anything inherently wrong with the old laptop, other than it was...well...old, slow and had a small screen.  That, and the "new Macbook Pros":http://www.apple.com/macbookpro/ came out recently and I figured now was a good time to pick one up.
+
+Per the suggestion of a coworker, I ditched the superdrive and put in its place a small 125GB SSD drive.  The SSD drive is my main drive, which holds the OS and most of my working files.  The old "spinning" drive holds big files - movies, music, databases, etc - and unless I'm actually using it, the drive sits dormant.  The result is _blazing_ fast random I/O and extended battery life.  It's pretty sweet.
+
+When I first got my old macbook, I had set it up by restoring from a time machine volume I kept for my old-old Macbook (first-gen 13" white).  The restore was painless and amazingly thorough.  Not only did it preserve all my files and application, it even left the desktop icons arranged in the same location.  In about 45 minutes I was able to have my old setup on new hardware.
+
+This time around, that wasn't a possibility.  The SSD drive was smaller than the HD on my old Macbook, thus restoring the files wasn't a real possibility.  But more importantly, I wanted to start fresh.  Namely, I wanted to try "Homebrew":http://mxcl.github.com/homebrew/ instead of "Macports":http://www.macports.org/ and "zsh":http://www.zsh.org/ as opposed to "bash":http://www.gnu.org/software/bash/.
+
+Best decision ever.
+
+The story on Homebrew is, while Macports is done with port files, shell scripts and SVN, Homebrew is written in Ruby and Git.  Packages are "simple Ruby DSL files":https://github.com/mxcl/homebrew/blob/master/Library/Formula/ruby.rb and installed to @/usr/local@, self-contained in a folder with the same name as the package.  And since it's just a Git repository, you can easily commit fixes, new packages or even checkout a revision containing the exact version of a package you want.  Oh and installation takes mere seconds, as opposed to Macport's 5-45 minutes.
+
+zsh is a shell, like bash, but with a few enhancements.  It has a lot of functionality, but the main reason I installed it was cause of "oh my zsh":https://github.com/robbyrussell/oh-my-zsh.  It's a "community driven framework for managing your zsh configuration."  The main appeal is its "large collection of themes":https://wiki.github.com/robbyrussell/oh-my-zsh/themes and  "plugins":https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins, many of which will print out your version of ruby (if using RVM), current git branch (with notification of uncommitted changes) and lots of other goodies.
+
+I decided to try an SSD drive, Homebrew and zsh on the suggestion of a couple coworkers.  It's not that I didn't know about both of these technologies before; it's more that I never gave them a serious look.  Spinning disks, Macports and bash had been working alright for me, and I was comfortable with them and thus had no reason to change.  Yet, had I known how much power, time and sanity they would save me, I would have made the switch sooner.
