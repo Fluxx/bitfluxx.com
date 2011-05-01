@@ -1,0 +1,33 @@
+---
+layout: post
+title: "Find and extract the content portion of an HTML document with Distillery"
+---
+
+I just open-sourced my latest project, "Distillery":https://github.com/Fluxx/distillery: a simple ruby gem that finds and extracts the "content" portion of an HTML document.  The algorithm is heavily influenced by "Readability":http://readability.com/, who were nice enough to make "their logic":http://code.google.com/p/arc90labs-readability/source/browse/trunk/js/readability.js open source.  In fact, the algorithm in Distillery to find the content element is nearly identical to that of Readability.  However, while Readability's algorithm aggressively cleans the content element HTML for display and online reading, Distillery allows the user to choose how (and if) they would like to clean content element HTML.
+
+Usage of Distillery quite simple:
+
+{% highlight ruby %}
+Distillery.distill(html_doc_as_a_string)
+> "distilled content"
+{% endhighlight %}
+
+By default Distillery will clean the HTML of the content element for you.  This usually removes things like advertisements, widgets, etc.  If you don't want to clean the HTML of the content element, you can pass @:clean => false@ as an option to the @distill@ method:
+
+{% highlight ruby %}
+Distillery.distill(html_doc_as_a_string, :clean => false)
+> "raw distilled content"
+{% endhighlight %}
+
+Right now the only control over cleaning the content HTML you have is whether to clean it, or not.  But there are a lot of levers and options in the cleaning code that I plan on adding to the public API to allow users of the gem to clean the content HTML exactly as they need to.
+
+Distillery also comes with a @distill@ executable that lets you distill content at the command line and print it to standard out:
+
+{% highlight bash %}
+$ distill http://bitfluxx.com/2011/02/22/rspec-encoding-matchers-for-ruby-1-9.html
+<header><h1>Rspec Encoding Matchers for Ruby 1.9</h1>
+<p><time datetime="" pubdate>Written 22 Feb 2011</time></p>
+[...]
+{% endhighlight %}
+
+For more details on Distillery, please see the "Readme":https://github.com/Fluxx/distillery or the "RDocs":http://rubydoc.info/gems/distillery/0.1.0/frames.
