@@ -118,7 +118,7 @@ end
 
 Much better.
 
-h3. Symbols as Metadata
+h2. Symbols as Metadata
 
 I certainly didn't know this before a little while ago, but you can use symbols as metadata in example group definitions:
 
