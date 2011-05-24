@@ -15,6 +15,10 @@ body {
 
   a { @include link-colors($bf-blue, $bf-yellow, $bf-blue, #AAA); }
 
+  p {
+    code { background-color: #F4F4F4; }
+  }
+
   header#sitewide {
     @include clearfix;
     @include container;
