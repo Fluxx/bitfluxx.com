@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Some RSpec Tips and Best Practices - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>Some RSpec Tips and Best Practices</h1>
+    <p><time datetime="" pubdate>Written 23 May 2011</time></p>
+  </header>
+
+  <p>I&#8217;ve been working a lot with <a href="http://relishapp.com/rspec">RSpec</a> lately, in close conjunction with my coworker <a href="http://myronmars.to/n/">Myron Marston</a>, who happens to be a committer to RSpec.  He&#8217;s shown me how a lot of features in RSpec work, how they&#8217;re useful and some best practices to use.  I thought I&#8217;d share some of my favorite ones.</p>
+<h2><code>let{}</code></h2>
+<p>I used to write specs like this:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span><span class="p">,</span> <span class="s1">&#39;#locate&#39;</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="p">{</span> <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">locate</span> <span class="p">}</span>
+  
+  <span class="n">it</span> <span class="s1">&#39;should return nil when not found&#39;</span> <span class="k">do</span>
+    <span class="vi">@user</span><span class="o">.</span><span class="n">should</span> <span class="n">be_nil</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>Note the use of the <code>@user</code> instance variable for the user.   That certainly works, but has the problem of introducing subtle bugs since <code>@instance</code> variables spring into existence as <code>nil</code> when first referenced, which is probably not what you wanted.</p>
+<p>Instead, you should use <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/helper-methods/let-and-let"><code>let{}</code></a>:</p>
+<ul>
+	<li>It is memoized when used multiple times in one example, but not <em>across</em> examples.</li>
+	<li>It is lazy-loaded, so you won&#8217;t waste time initializing the variable for examples that don&#8217;t reference it.</li>
+	<li>Will raise an exception if the variable a <code>let</code> is supposed to define is not set.</li>
+</ul>
+<p>So to rewrite the example above using <code>let{}</code>:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="p">}</span>
+  
+  <span class="n">it</span> <span class="s1">&#39;should have a name&#39;</span> <span class="k">do</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">should_not</span> <span class="n">be_nil</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>There is also a <code>let!{}</code> version that tells RSpec to evaluate your block before your examples run &#8211; basically turning it in to a before hook. Pretty sweet!</p>
+<h2>Enhanced <code>it_should_behave_like</code></h2>
+<p>Shared example groups were one of those RSpec features that seemed useful in concept, but I found hard to actually use effectively.  Mostly I found that <code>it_should_behave_like "some text"</code> wasn&#8217;t particularly descriptive enough for all situations, and it was hard for me to craft a generic enough shared example group that I could drop in to an existing example group and have it work well.</p>
+<p>Thankfully there are a couple cool features of shared example groups to help with these problems:</p>
+<h3>Passing context in</h3>
+<p><code>it_should_behave_like</code> actually takes a block, which is evaluated before running the shared example group.  Thus, you can do this (stolen from <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/example-groups/shared-examples">RSpec&#8217;s cucumber features</a>):</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">shared_examples</span> <span class="s2">&quot;a collection object&quot;</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">&quot;&lt;&lt;&quot;</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s2">&quot;adds objects to the end of the collection&quot;</span> <span class="k">do</span>
+      <span class="n">collection</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
+      <span class="n">collection</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+      <span class="n">collection</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">should</span> <span class="n">eq</span><span class="p">(</span><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">]</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="nb">Array</span> <span class="k">do</span>
+  <span class="n">it_behaves_like</span> <span class="s2">&quot;a collection object&quot;</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:collection</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="no">Set</span> <span class="k">do</span>
+  <span class="n">it_behaves_like</span> <span class="s2">&quot;a collection object&quot;</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:collection</span><span class="p">)</span> <span class="p">{</span> <span class="no">Set</span><span class="o">.</span><span class="n">new</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><h3>Passing in arguments</h3>
+<p>Shared example groups also take parameters to the block.  This lets you customize the shared examples as needed based on the values passed in.  For example, Myron wrote this cool shared helper:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">shared_examples_for</span> <span class="s2">&quot;a model that validates presence of&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">property</span><span class="o">|</span>
+  <span class="n">it</span> <span class="s2">&quot;requires a value for </span><span class="si">#{</span><span class="n">property</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">new_valid_record</span>
+    <span class="n">record</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="ss">:&quot;</span><span class="si">#{</span><span class="n">property</span><span class="si">}</span><span class="ss">=&quot;</span><span class="p">,</span> <span class="kp">nil</span><span class="p">)</span>
+    <span class="n">record</span><span class="o">.</span><span class="n">should_not</span> <span class="n">be_valid</span>
+    <span class="n">record</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="n">property</span><span class="o">.</span><span class="n">to_sym</span><span class="o">].</span><span class="n">should</span> <span class="kp">include</span><span class="p">(</span><span class="s2">&quot;can&#39;t be blank&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>Then, to utilize it, you simply call it with the argument passed:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">it_behaves_like</span> <span class="s2">&quot;a model that validates presence of&quot;</span><span class="p">,</span> <span class="ss">:name</span>
+<span class="k">end</span>
+</code></pre>
+</div><h3>Aliasing <code>it_should_behave_like</code></h3>
+<p>We can do better.  To help make your specs read clearer and be more self-documenting, you can alias <code>it_should_behave_like</code> with some simple configuration:</p>
+<div class="highlight"><pre><code class="ruby"><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="o">.</span><span class="n">alias_it_should_behave_like_to</span> <span class="ss">:it_validates</span><span class="p">,</span> <span class="s2">&quot;it validates&quot;</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>Now, the presence shared example group can be used like this:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">it_validates</span> <span class="s2">&quot;presence of&quot;</span><span class="p">,</span> <span class="ss">:name</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>Much better.</p>
+<h3>Symbols as Metadata</h3>
+<p>I certainly didn&#8217;t know this before a little while ago, but you can use symbols as metadata in example group definitions:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span><span class="p">,</span> <span class="ss">:metadata</span> <span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_empty</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>How do you use this?  Well, a bunch of ways.</p>
+<p>With the <code>filter_run</code> config option you can tell RSpec what metadata to use to filter specs runs.  Basically, only specs with the configured metadata will be run by RSpec.  For example:</p>
+<div class="highlight"><pre><code class="ruby"><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">filter_run</span> <span class="ss">:focus</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>This will tell RSpec to only run specs with <code>:focus =&gt; true</code> metadata.  This is very handy when running specs via <a href="https://github.com/guard/guard">Guard</a> and focusing your test runs on to a certain spec or specs temporarily.</p>
+<p>Conversely, the <code>filter_run_excluding</code> metadata can be used to exclude specs.  For example:</p>
+<div class="highlight"><pre><code class="ruby"><span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">filter_run_excluding</span> <span class="ss">:broken</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="k">end</span>
+</code></pre>
+</div><p>This will tell RSpec to skip specs with the metadata <code>:broken =&gt; true</code>.</p>
+<p>You can also pass your own custom metadata, that will let you tag specs as needed.  For example, you could tag specs with the issue number from your bug tracking software, <code>:issue =&gt; 12345</code>.</p>
+<p>Then, you can only run those specs for issue #12345 via a command line option:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">rspec</span> <span class="o">--</span><span class="n">tag</span> <span class="n">issue</span><span class="p">:</span><span class="mi">12345</span> <span class="n">user_spec</span><span class="o">.</span><span class="n">rb</span>
+</code></pre>
+</div><p>There are lots of <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option">other <code>--tag</code> command line options</a> to let you include or exclude specs based on your rags.</p>
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

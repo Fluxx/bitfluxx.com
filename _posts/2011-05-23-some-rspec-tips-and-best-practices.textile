@@ -1,0 +1,161 @@
+---
+layout: post
+title: "Some RSpec Tips and Best Practices"
+---
+
+I've been working a lot with "RSpec":http://relishapp.com/rspec lately, in close conjunction with my coworker "Myron Marston":http://myronmars.to/n/, who happens to be a committer to RSpec.  He's shown me how a lot of features in RSpec work, how they're useful and some best practices to use.  I thought I'd share some of my favorite ones.
+
+h2. @let{}@
+
+I used to write specs like this:
+
+{% highlight ruby %}
+describe User, '#locate'
+  before(:each) { @user = User.locate }
+  
+  it 'should return nil when not found' do
+    @user.should be_nil
+  end
+end
+{% endhighlight %}
+
+Note the use of the @@user@ instance variable for the user.   That certainly works, but has the problem of introducing subtle bugs since @@instance@ variables spring into existence as @nil@ when first referenced, which is probably not what you wanted.
+
+Instead, you should use "@let{}@":http://relishapp.com/rspec/rspec-core/v/2-6/dir/helper-methods/let-and-let:
+
+* It is memoized when used multiple times in one example, but not _across_ examples.
+* It is lazy-loaded, so you won't waste time initializing the variable for examples that don't reference it.
+* Will raise an exception if the variable a @let@ is supposed to define is not set.
+
+So to rewrite the example above using @let{}@:
+
+{% highlight ruby %}
+describe User
+  let(:user) { User.find(id) }
+  
+  it 'should have a name' do
+    user.name.should_not be_nil
+  end
+end
+{% endhighlight %}
+
+There is also a @let!{}@ version that tells RSpec to evaluate your block before your examples run - basically turning it in to a before hook. Pretty sweet!
+
+h2. Enhanced @it_should_behave_like@
+
+Shared example groups were one of those RSpec features that seemed useful in concept, but I found hard to actually use effectively.  Mostly I found that @it_should_behave_like "some text"@ wasn't particularly descriptive enough for all situations, and it was hard for me to craft a generic enough shared example group that I could drop in to an existing example group and have it work well.
+
+Thankfully there are a couple cool features of shared example groups to help with these problems:
+
+h3. Passing context in
+
+@it_should_behave_like@ actually takes a block, which is evaluated before running the shared example group.  Thus, you can do this (stolen from "RSpec's cucumber features":http://relishapp.com/rspec/rspec-core/v/2-6/dir/example-groups/shared-examples):
+
+{% highlight ruby %}
+shared_examples "a collection object" do
+  describe "<<" do
+    it "adds objects to the end of the collection" do
+      collection << 1
+      collection << 2
+      collection.to_a.should eq([1,2])
+    end
+  end
+end
+
+describe Array do
+  it_behaves_like "a collection object" do
+    let(:collection) { Array.new }
+  end
+end
+
+describe Set do
+  it_behaves_like "a collection object" do
+    let(:collection) { Set.new }
+  end
+end
+{% endhighlight %}
+
+h3. Passing in arguments
+
+Shared example groups also take parameters to the block.  This lets you customize the shared examples as needed based on the values passed in.  For example, Myron wrote this cool shared helper:
+
+{% highlight ruby %}
+shared_examples_for "a model that validates presence of" do |property|
+  it "requires a value for #{property}" do
+    record = new_valid_record
+    record.send(:"#{property}=", nil)
+    record.should_not be_valid
+    record.errors[property.to_sym].should include("can't be blank")
+  end
+end
+{% endhighlight %}
+
+Then, to utilize it, you simply call it with the argument passed:
+
+{% highlight ruby %}
+describe User do
+  it_behaves_like "a model that validates presence of", :name
+end
+{% endhighlight %}
+
+h3. Aliasing @it_should_behave_like@
+
+We can do better.  To help make your specs read clearer and be more self-documenting, you can alias @it_should_behave_like@ with some simple configuration:
+
+{% highlight ruby %}
+RSpec.configure do |config|
+  config.alias_it_should_behave_like_to :it_validates, "it validates"
+end
+{% endhighlight %}
+
+Now, the presence shared example group can be used like this:
+
+{% highlight ruby %}
+describe User do
+  it_validates "presence of", :name
+end
+{% endhighlight %}
+
+Much better.
+
+h3. Symbols as Metadata
+
+I certainly didn't know this before a little while ago, but you can use symbols as metadata in example group definitions:
+
+{% highlight ruby %}
+describe User, :metadata => 'value' do
+  it { should be_empty }
+end
+{% endhighlight %}
+
+How do you use this?  Well, a bunch of ways.
+
+With the @filter_run@ config option you can tell RSpec what metadata to use to filter specs runs.  Basically, only specs with the configured metadata will be run by RSpec.  For example:
+
+{% highlight ruby %}
+RSpec.configure do |c|
+  c.filter_run :focus => true
+end
+{% endhighlight %}
+
+This will tell RSpec to only run specs with @:focus => true@ metadata.  This is very handy when running specs via "Guard":https://github.com/guard/guard and focusing your test runs on to a certain spec or specs temporarily.
+
+Conversely, the @filter_run_excluding@ metadata can be used to exclude specs.  For example:
+
+{% highlight ruby %}
+RSpec.configure do |c|
+  c.filter_run_excluding :broken => true
+end
+{% endhighlight %}
+
+This will tell RSpec to skip specs with the metadata @:broken => true@.
+
+You can also pass your own custom metadata, that will let you tag specs as needed.  For example, you could tag specs with the issue number from your bug tracking software, @:issue => 12345@.
+
+Then, you can only run those specs for issue #12345 via a command line option:
+
+{% highlight ruby %}
+rspec --tag issue:12345 user_spec.rb
+{% endhighlight %}
+
+There are lots of "other @--tag@ command line options":http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option to let you include or exclude specs based on your rags.
