@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Message Passing and Fun with Erlang - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>Message Passing and Fun with Erlang</h1>
+    <p><time datetime="" pubdate>Written 21 Aug 2011</time></p>
+  </header>
+
+  <p>Over the past few months I&#8217;ve been working on learning more programming languages.  I wanted to expand my experience, be introduced to new concepts in other languages and challenge myself by getting out of my comfort zone and try some hard problems.  I&#8217;ve already played around a fair amount with Python, and now I&#8217;m working on Erlang.</p>
+<p>Erlang is a functional programming language created my Ericsson to improve the reliability of its telephony applications.  It&#8217;s main selling points are high concurrency and fault tolerance.  It achieves those by leveraging the actor model, &#8220;shared nothing&#8221; memory and single assignment.  Read <a href="http://en.wikipedia.org/wiki/Erlang_(programming_language)">more about Erlang</a> on Wikipedia.</p>
+<p>I&#8217;ve been working my way through the <a href="http://www.erlang.org/course/exercises.html">Erlang Programming Exercises</a>, and most recently just got through the &#8220;ring&#8221; problem.  The story on this problem is you must write a program that starts <code>N</code> processes (think green threads) in a ring, such that you can pass a message <code>M</code> times around the ring, then have all processes terminate gracefully.</p>
+<p>In working on and researching the problem I found a couple other people who had also worked out solutions way back in 2007, most notably <a href="http://blog.grayproductions.net/articles/erlang_message_passing">Tom Preston-Warner</a>.  I liked Tom&#8217;s solution, but one issue I took with it is that the entirely of setting up the ring and listening for messages by each process in the ring takes place via spawned functions.  You start the ring by spawning the first process. It in turn spawns the next process, which then spawns the next process, etc all the way until the ring is fully built up.</p>
+<p>This is certainly an elegant solution, but it does have a race condition.  After you spawn the first process, control flow immediately continues past that line.  When the first process is spawned, everything it does is more-or-less in the &#8220;background&#8221; in a separate process from your current one.  So if on that next line you then send a message to that first spawned process, the other ring processes may not actually have been spawned yet, so you won&#8217;t make it around your ring.</p>
+<p>In my solution, I wanted to alleviate that problem.  I did this by spawning all the ring processes in the main process before sending the first message.  My <code>start</code> function takes in the <code>Size</code> of the ring, the <code>Message</code> to pass and the <code>Count</code> of times to pass the message around as arguments.  It then spawns <code>Size - 1</code> processes that are linked together in a linked list, sends the message to the first one and then the current process connects itself to pass its messages received from the last member of the linked list to the first, thus completing the ring.</p>
+<p>The rest of the program is pretty simple.  Each spawned process is waiting to receive a tuple of <code>{Message, Count}</code>.  In nearly every case, each process forwards the message along to the next pid and the calls <code>listen_and_forward_to/2</code> again to set itself up for receiving more messages.  There are a couple exceptions where the behavior is different:</p>
+<ol>
+	<li>If the process is the original main process in the ring, we&#8217;ve made one complete loop so it decrements one from <code>Count</code> before passing the message along for the next iteration.</li>
+	<li>If this is the last (the <code>1th</code>) cycle of <code>Message</code> through the ring, each process passes <code>Message</code> to the next pid but <em>does not</em> call <code>listen_and_forward_to/2</code> again to receive new messages.  The processes will then terminate gracefully.</li>
+</ol>
+<div class="highlight"><pre><code class="erlang"><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">ring</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">build</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">listen_and_forward_to</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+
+<span class="nf">start</span><span class="p">(</span><span class="nv">Size</span><span class="p">,</span> <span class="nv">Message</span><span class="p">,</span> <span class="nv">Count</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">LastPid</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="nv">Size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+  <span class="nv">LastPid</span> <span class="o">!</span> <span class="p">{</span><span class="nv">Message</span><span class="p">,</span> <span class="nv">Count</span><span class="p">},</span>
+  <span class="n">listen_and_forward_to</span><span class="p">(</span><span class="nv">LastPid</span><span class="p">,</span> <span class="n">true</span><span class="p">).</span>
+
+<span class="nf">build</span><span class="p">(</span><span class="nv">Size</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Builder</span> <span class="o">=</span> <span class="k">fun</span><span class="p">(_</span><span class="nv">Num</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">spawn</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">listen_and_forward_to</span><span class="p">,</span> <span class="p">[</span><span class="nv">Pid</span><span class="p">,</span> <span class="n">false</span><span class="p">])</span> <span class="k">end</span><span class="p">,</span>
+  <span class="nn">lists</span><span class="p">:</span><span class="n">foldl</span><span class="p">(</span><span class="nv">Builder</span><span class="p">,</span> <span class="n">self</span><span class="p">(),</span> <span class="nn">lists</span><span class="p">:</span><span class="n">seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nv">Size</span><span class="p">)).</span>
+
+<span class="nf">listen_and_forward_to</span><span class="p">(</span><span class="nv">Pid</span><span class="p">,</span> <span class="nv">Last</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="k">receive</span>
+    <span class="p">{</span><span class="nv">Message</span><span class="p">,</span> <span class="mi">1</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="nv">Pid</span> <span class="o">!</span> <span class="p">{</span><span class="nv">Message</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span>
+      <span class="nn">io</span><span class="p">:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Process </span><span class="si">~p</span><span class="s"> received </span><span class="si">~p</span><span class="s"> (1), forwarding to </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span><span class="p">(),</span> <span class="nv">Message</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">]);</span>
+    <span class="p">{</span><span class="nv">Message</span><span class="p">,</span> <span class="nv">Count</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="nn">io</span><span class="p">:</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Process </span><span class="si">~p</span><span class="s"> received </span><span class="si">~p</span><span class="s"> (</span><span class="si">~p</span><span class="s">), forwarding to </span><span class="si">~p~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span><span class="p">(),</span> <span class="nv">Message</span><span class="p">,</span> <span class="nv">Count</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">]),</span>
+      <span class="k">case</span> <span class="nv">Last</span> <span class="k">of</span>
+        <span class="n">true</span> <span class="o">-&gt;</span> <span class="nv">Pid</span> <span class="o">!</span> <span class="p">{</span><span class="nv">Message</span><span class="p">,</span> <span class="nv">Count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">};</span>
+        <span class="n">false</span> <span class="o">-&gt;</span> <span class="nv">Pid</span> <span class="o">!</span> <span class="p">{</span><span class="nv">Message</span><span class="p">,</span> <span class="nv">Count</span><span class="p">}</span>
+      <span class="k">end</span><span class="p">,</span>
+      <span class="n">listen_and_forward_to</span><span class="p">(</span><span class="nv">Pid</span><span class="p">,</span> <span class="nv">Last</span><span class="p">)</span>
+  <span class="k">end</span><span class="p">.</span>
+</code></pre>
+</div><p>This problem took me the better part of the afternoon to get right.  A lot of the struggle for me has been getting comfortable with the Erlang syntax, but the majority of time spent has been training my brain to think about problems in a more functional and concurrent way.  A lot of this is getting used to message passing, but most of it is me learning how to work with the utter lack of nearly any state in the program at all.</p>
+<p>In Erlang, I can&#8217;t do what I&#8217;m used to in other OO or imperative languages by building up some object in memory and calling methods on it to make it do stuff.  Instead, it&#8217;s all about calling functions to do stuff and return values, then perhaps using those returned values as arguments in other functions that do other things and return other values.</p>
+<p>On paper, this sounds like it would be a lot less elegant and harder than OO programming, which is halfway true &#8211; it certainly is a lot harder to understand.  However, the <em>benefits</em> of this more functional approach are that it&#8217;s a lot more terse and straight forward because it&#8217;s <strong>declarative</strong> as opposed to <strong>composed</strong>.  You can isolate any part of my program above and understand with near 100% certainty what it&#8217;s supposed to do.  This is all because there isn&#8217;t any state floating around that you need to understand to figure out what the program is doing.</p>
+<p>This style certainly isn&#8217;t for every programming problem and every piece of software, but for applications where fault tolerance, availability and concurrency are important &#8211; I think Erlang is a good choice.  I&#8217;m looking forward to learning more as I continue.</p>
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

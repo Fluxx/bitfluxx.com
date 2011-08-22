@@ -1,0 +1,57 @@
+---
+layout: post
+title: "Message Passing and Fun with Erlang"
+---
+
+Over the past few months I've been working on learning more programming languages.  I wanted to expand my experience, be introduced to new concepts in other languages and challenge myself by getting out of my comfort zone and try some hard problems.  I've already played around a fair amount with Python, and now I'm working on Erlang.
+
+Erlang is a functional programming language created my Ericsson to improve the reliability of its telephony applications.  It's main selling points are high concurrency and fault tolerance.  It achieves those by leveraging the actor model, "shared nothing" memory and single assignment.  Read "more about Erlang":http://en.wikipedia.org/wiki/Erlang_(programming_language) on Wikipedia.
+
+I've been working my way through the "Erlang Programming Exercises":http://www.erlang.org/course/exercises.html, and most recently just got through the "ring" problem.  The story on this problem is you must write a program that starts @N@ processes (think green threads) in a ring, such that you can pass a message @M@ times around the ring, then have all processes terminate gracefully.
+
+In working on and researching the problem I found a couple other people who had also worked out solutions way back in 2007, most notably "Tom Preston-Warner":http://blog.grayproductions.net/articles/erlang_message_passing.  I liked Tom's solution, but one issue I took with it is that the entirely of setting up the ring and listening for messages by each process in the ring takes place via spawned functions.  You start the ring by spawning the first process. It in turn spawns the next process, which then spawns the next process, etc all the way until the ring is fully built up.
+
+This is certainly an elegant solution, but it does have a race condition.  After you spawn the first process, control flow immediately continues past that line.  When the first process is spawned, everything it does is more-or-less in the "background" in a separate process from your current one.  So if on that next line you then send a message to that first spawned process, the other ring processes may not actually have been spawned yet, so you won't make it around your ring.
+
+In my solution, I wanted to alleviate that problem.  I did this by spawning all the ring processes in the main process before sending the first message.  My @start@ function takes in the @Size@ of the ring, the @Message@ to pass and the @Count@ of times to pass the message around as arguments.  It then spawns @Size - 1@ processes that are linked together in a linked list, sends the message to the first one and then the current process connects itself to pass its messages received from the last member of the linked list to the first, thus completing the ring.
+
+The rest of the program is pretty simple.  Each spawned process is waiting to receive a tuple of @{Message, Count}@.  In nearly every case, each process forwards the message along to the next pid and the calls @listen_and_forward_to/2@ again to set itself up for receiving more messages.  There are a couple exceptions where the behavior is different:
+
+# If the process is the original main process in the ring, we've made one complete loop so it decrements one from @Count@ before passing the message along for the next iteration.
+# If this is the last (the @1th@) cycle of @Message@ through the ring, each process passes @Message@ to the next pid but _does not_ call @listen_and_forward_to/2@ again to receive new messages.  The processes will then terminate gracefully.
+
+{% highlight erlang %}
+-module(ring).
+-export([start/3, build/1, listen_and_forward_to/2]).
+
+start(Size, Message, Count) ->
+  LastPid = build(Size - 1),
+  LastPid ! {Message, Count},
+  listen_and_forward_to(LastPid, true).
+
+build(Size) ->
+  Builder = fun(_Num, Pid) -> spawn(ring, listen_and_forward_to, [Pid, false]) end,
+  lists:foldl(Builder, self(), lists:seq(1, Size)).
+
+listen_and_forward_to(Pid, Last) ->
+  receive
+    {Message, 1} ->
+      Pid ! {Message, 1},
+      io:format("Process ~p received ~p (1), forwarding to ~p~n", [self(), Message, Pid]);
+    {Message, Count} ->
+      io:format("Process ~p received ~p (~p), forwarding to ~p~n", [self(), Message, Count, Pid]),
+      case Last of
+        true -> Pid ! {Message, Count - 1};
+        false -> Pid ! {Message, Count}
+      end,
+      listen_and_forward_to(Pid, Last)
+  end.
+{% endhighlight %}
+
+This problem took me the better part of the afternoon to get right.  A lot of the struggle for me has been getting comfortable with the Erlang syntax, but the majority of time spent has been training my brain to think about problems in a more functional and concurrent way.  A lot of this is getting used to message passing, but most of it is me learning how to work with the utter lack of nearly any state in the program at all.
+
+In Erlang, I can't do what I'm used to in other OO or imperative languages by building up some object in memory and calling methods on it to make it do stuff.  Instead, it's all about calling functions to do stuff and return values, then perhaps using those returned values as arguments in other functions that do other things and return other values.
+
+On paper, this sounds like it would be a lot less elegant and harder than OO programming, which is halfway true - it certainly is a lot harder to understand.  However, the _benefits_ of this more functional approach are that it's a lot more terse and straight forward because it's *declarative* as opposed to *composed*.  You can isolate any part of my program above and understand with near 100% certainty what it's supposed to do.  This is all because there isn't any state floating around that you need to understand to figure out what the program is doing.
+
+This style certainly isn't for every programming problem and every piece of software, but for applications where fault tolerance, availability and concurrency are important - I think Erlang is a good choice.  I'm looking forward to learning more as I continue.
