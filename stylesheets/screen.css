@@ -1193,45 +1193,18 @@ body#about nav li#about-link a {
   padding: 10px 14px;
 }
 
-/* line 8, ../_sass/screen.scss */
-article.post header {
-  margin-bottom: 1em;
-}
-/* line 10, ../_sass/screen.scss */
-article.post header time {
-  color: #666666;
-}
-
-/* line 15, ../_sass/screen.scss */
-ul.posts time {
-  font-color: #666666;
-}
-
-/* line 18, ../_sass/screen.scss */
-section#bio {
-  font-size: 150%;
-  font-style: italic;
-}
-
-/* line 23, ../_sass/screen.scss */
-#about p#author {
-  display: inline;
-  float: right;
-  margin-left: 20px;
-}
-
-/* line 30, ../_sass/screen.scss */
+/* line 6, ../_sass/_resume.scss */
 article#resume > header {
   border-bottom: 1px solid #dfdfdf;
   margin-bottom: 2em;
 }
-/* line 31, ../_sass/screen.scss */
+/* line 7, ../_sass/_resume.scss */
 article#resume > header address {
   display: inline;
   float: right;
   font-style: normal;
 }
-/* line 35, ../_sass/screen.scss */
+/* line 11, ../_sass/_resume.scss */
 article#resume > header address ul {
   margin: 0;
   padding: 0;
@@ -1263,21 +1236,21 @@ article#resume > header address ul li:last-child {
 article#resume > header address ul li.last {
   padding-right: 0;
 }
-/* line 37, ../_sass/screen.scss */
+/* line 13, ../_sass/_resume.scss */
 article#resume > header address ul li + li {
   border-left: 1px solid #dfdfdf;
 }
-/* line 41, ../_sass/screen.scss */
+/* line 17, ../_sass/_resume.scss */
 article#resume > header h2 {
   font-size: 1.5em;
   font-style: italic;
 }
-/* line 50, ../_sass/screen.scss */
+/* line 26, ../_sass/_resume.scss */
 article#resume > section {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 54, ../_sass/screen.scss */
+/* line 30, ../_sass/_resume.scss */
 article#resume > section > h1 {
   display: inline;
   float: left;
@@ -1285,39 +1258,39 @@ article#resume > section > h1 {
   font-style: italic;
   width: 25%;
 }
-/* line 61, ../_sass/screen.scss */
+/* line 37, ../_sass/_resume.scss */
 article#resume > section > ul, article#resume > section > p {
   display: inline;
   float: right;
   margin-right: 1.5em;
   width: 65%;
 }
-/* line 67, ../_sass/screen.scss */
+/* line 43, ../_sass/_resume.scss */
 article#resume > section + section {
   border-top: 1px solid #dfdfdf;
   padding-top: 2em;
 }
-/* line 76, ../_sass/screen.scss */
+/* line 52, ../_sass/_resume.scss */
 article#resume section#technical-skillset ul span {
   color: #555;
   font-size: 80%;
 }
-/* line 85, ../_sass/screen.scss */
+/* line 61, ../_sass/_resume.scss */
 article#resume section#work-experience > ul, article#resume section#education > ul {
   list-style-image: none;
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 90, ../_sass/screen.scss */
+/* line 66, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li + li, article#resume section#education > ul > li + li {
   margin-top: 20px;
 }
-/* line 94, ../_sass/screen.scss */
+/* line 70, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h2, article#resume section#education > ul > li h2 {
   font-size: 1.6em;
   margin-bottom: 0;
 }
-/* line 99, ../_sass/screen.scss */
+/* line 75, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -1331,7 +1304,34 @@ article#resume section#work-experience > ul > li h3, article#resume section#educ
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
   *display: inline;
 }
-/* line 104, ../_sass/screen.scss */
+/* line 80, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h3:last-child:before, article#resume section#education > ul > li h3:last-child:before {
   content: " | ";
+}
+
+/* line 6, ../_sass/screen.scss */
+article.post header {
+  margin-bottom: 1em;
+}
+/* line 8, ../_sass/screen.scss */
+article.post header time {
+  color: #666666;
+}
+
+/* line 13, ../_sass/screen.scss */
+ul.posts time {
+  font-color: #666666;
+}
+
+/* line 16, ../_sass/screen.scss */
+section#bio {
+  font-size: 150%;
+  font-style: italic;
+}
+
+/* line 21, ../_sass/screen.scss */
+#about p#author {
+  display: inline;
+  float: right;
+  margin-left: 20px;
 }

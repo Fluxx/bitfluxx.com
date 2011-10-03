@@ -1,8 +1,6 @@
 @import "base";
 @import "layout";
-
-$resume-hr-color: #DFDFDF;
-$resume-section-spacing: 2em;
+@import "resume";
 
 article.post {    
   header {
@@ -23,91 +21,4 @@ section#bio {
 #about p#author {
   @include float-right;
   margin-left: 20px;
-}
-
-article#resume {
-
-  > header {
-    address {
-      @include float-right;
-      font-style: normal;
-      
-      ul {
-        @include horizontal-list(10px);
-        li + li { border-left: 1px solid $resume-hr-color; }
-      }
-    }
-
-    h2 {
-      font-size: 1.5em;
-      font-style: italic;
-    }
-
-    border-bottom: 1px solid $resume-hr-color;
-    margin-bottom: $resume-section-spacing;
-  }
-
-  > section {
-
-    @include clearfix;
-
-    > h1 {
-      @include float-left;
-      font-size: 2em;
-      font-style: italic;
-      width: 25%;
-    }
-
-    > ul, > p {
-      @include float-right;
-      margin-right: 1.5em;
-      width: 65%;
-    }
-
-    + section {
-      border-top: 1px solid $resume-hr-color;
-      padding-top: $resume-section-spacing;
-    }
-
-  }
-
-  section#technical-skillset {
-    ul {
-      span {
-        color: #555;
-        font-size: 80%;
-      }
-    }
-  }
-
-  section#work-experience, section#education {
-
-    > ul {
-
-      @include no-bullet;
-
-      > li {
-        + li {
-          margin-top: 20px;
-        }
-
-        h2 {
-          font-size: 1.6em;
-          margin-bottom: 0;
-        }
-
-        h3 {
-          @include inline-block;
-          color: #999;
-          font-size: 1.2em;
-
-          &:last-child:before {
-            content: " | ";
-          }
-        }
-
-      }
-    }
-
-  }
 }
