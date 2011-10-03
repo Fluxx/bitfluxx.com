@@ -1329,9 +1329,14 @@ section#bio {
   font-style: italic;
 }
 
-/* line 21, ../_sass/screen.scss */
+/* line 22, ../_sass/screen.scss */
 #about p#author {
   display: inline;
   float: right;
   margin-left: 20px;
+}
+/* line 27, ../_sass/screen.scss */
+#about a#html5-badge {
+  display: inline;
+  float: left;
 }

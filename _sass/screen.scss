@@ -18,7 +18,13 @@ section#bio {
   font-style: italic;
 }
 
-#about p#author {
-  @include float-right;
-  margin-left: 20px;
+#about {
+	p#author {
+	  @include float-right;
+	  margin-left: 20px;
+	}
+
+	a#html5-badge {
+		@include float-left;		
+	}
 }
