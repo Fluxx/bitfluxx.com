@@ -15,7 +15,7 @@ Find me at these lovely online establishments:
 * "Github":https://github.com/fluxx
 * "Hacker News":http://news.ycombinator.com/user?id=Fluxx
 
-For more information on me, please see "my resumé":/resume.html.
+For more information on me, please see "my résumé":/resume.html.
 
 h2. About This Site
 
