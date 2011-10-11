@@ -19,19 +19,19 @@ describe User, '#locate'
 end
 {% endhighlight %}
 
-Note the use of the @@user@ instance variable for the user.   That certainly works, but has the problem of introducing subtle bugs since @@instance@ variables spring into existence as @nil@ when first referenced, which is probably not what you wanted.
+Note the use of the @@user@ instance variable for the user.   That certainly works, but has the problem of introducing subtle bugs since @@instance@ variables spring into existence as @nil@ when first referenced.  This means that if I have a typo in my spec and say @@usar.should be_nil@, the spec will _still pass_ even if the correctly-named @@user@ variable is not nil.  Not good.
 
 Instead, you should use "@let{}@":http://relishapp.com/rspec/rspec-core/v/2-6/dir/helper-methods/let-and-let:
 
 * It is memoized when used multiple times in one example, but not _across_ examples.
 * It is lazy-loaded, so you won't waste time initializing the variable for examples that don't reference it.
-* Will raise an exception if the variable a @let@ is supposed to define is not set.
+* Will raise an exception if you have a typo in your variable name.
 
 So to rewrite the example above using @let{}@:
 
 {% highlight ruby %}
 describe User
-  let(:user) { User.find(id) }
+  let(:user) { User.locate }
   
   it 'should have a name' do
     user.name.should_not be_nil
@@ -39,7 +39,7 @@ describe User
 end
 {% endhighlight %}
 
-There is also a @let!{}@ version that tells RSpec to evaluate your block before your examples run - basically turning it in to a before hook. Pretty sweet!
+There is also a @let!{}@ version (note the added @!@) that tells RSpec to evaluate the block passed to @let@ before your examples run - basically turning it in to a @before(:each)@ hook. Pretty sweet!
 
 h2. Enhanced @it_should_behave_like@
 
@@ -158,4 +158,4 @@ Then, you can only run those specs for issue #12345 via a command line option:
 rspec --tag issue:12345 user_spec.rb
 {% endhighlight %}
 
-There are lots of "other @--tag@ command line options":http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option to let you include or exclude specs based on your rags.
+There are lots of "other @--tag@ command line options":http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option to let you include or exclude specs based on your tags.

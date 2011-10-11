@@ -47,23 +47,23 @@
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-</div><p>Note the use of the <code>@user</code> instance variable for the user.   That certainly works, but has the problem of introducing subtle bugs since <code>@instance</code> variables spring into existence as <code>nil</code> when first referenced, which is probably not what you wanted.</p>
+</div><p>Note the use of the <code>@user</code> instance variable for the user.   That certainly works, but has the problem of introducing subtle bugs since <code>@instance</code> variables spring into existence as <code>nil</code> when first referenced.  This means that if I have a typo in my spec and say <code>@usar.should be_nil</code>, the spec will <em>still pass</em> even if the correctly-named <code>@user</code> variable is not nil.  Not good.</p>
 <p>Instead, you should use <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/helper-methods/let-and-let"><code>let{}</code></a>:</p>
 <ul>
 	<li>It is memoized when used multiple times in one example, but not <em>across</em> examples.</li>
 	<li>It is lazy-loaded, so you won&#8217;t waste time initializing the variable for examples that don&#8217;t reference it.</li>
-	<li>Will raise an exception if the variable a <code>let</code> is supposed to define is not set.</li>
+	<li>Will raise an exception if you have a typo in your variable name.</li>
 </ul>
 <p>So to rewrite the example above using <code>let{}</code>:</p>
 <div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span>
-  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="o">.</span><span class="n">locate</span> <span class="p">}</span>
   
   <span class="n">it</span> <span class="s1">&#39;should have a name&#39;</span> <span class="k">do</span>
     <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">should_not</span> <span class="n">be_nil</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-</div><p>There is also a <code>let!{}</code> version that tells RSpec to evaluate your block before your examples run &#8211; basically turning it in to a before hook. Pretty sweet!</p>
+</div><p>There is also a <code>let!{}</code> version (note the added <code>!</code>) that tells RSpec to evaluate the block passed to <code>let</code> before your examples run &#8211; basically turning it in to a <code>before(:each)</code> hook. Pretty sweet!</p>
 <h2>Enhanced <code>it_should_behave_like</code></h2>
 <p>Shared example groups were one of those RSpec features that seemed useful in concept, but I found hard to actually use effectively.  Mostly I found that <code>it_should_behave_like "some text"</code> wasn&#8217;t particularly descriptive enough for all situations, and it was hard for me to craft a generic enough shared example group that I could drop in to an existing example group and have it work well.</p>
 <p>Thankfully there are a couple cool features of shared example groups to help with these problems:</p>
@@ -142,7 +142,7 @@
 <p>Then, you can only run those specs for issue #12345 via a command line option:</p>
 <div class="highlight"><pre><code class="ruby"><span class="n">rspec</span> <span class="o">--</span><span class="n">tag</span> <span class="n">issue</span><span class="p">:</span><span class="mi">12345</span> <span class="n">user_spec</span><span class="o">.</span><span class="n">rb</span>
 </code></pre>
-</div><p>There are lots of <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option">other <code>--tag</code> command line options</a> to let you include or exclude specs based on your rags.</p>
+</div><p>There are lots of <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option">other <code>--tag</code> command line options</a> to let you include or exclude specs based on your tags.</p>
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
