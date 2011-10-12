@@ -1199,22 +1199,19 @@ article#resume > header {
   margin-bottom: 2em;
 }
 /* line 7, ../_sass/_resume.scss */
-article#resume > header address {
+article#resume > header ul#resources {
   display: inline;
   float: right;
-  font-style: normal;
-}
-/* line 11, ../_sass/_resume.scss */
-article#resume > header address ul {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
   overflow: hidden;
   *zoom: 1;
+  font-style: normal;
 }
 /* line 60, ../../../.rvm/gems/ruby-1.9.2-p290@global/gems/compass-0.11.beta.2/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
-article#resume > header address ul li {
+article#resume > header ul#resources li {
   list-style-image: none;
   list-style-type: none;
   margin-left: 0px;
@@ -1225,27 +1222,37 @@ article#resume > header address ul li {
   padding-right: 10px;
 }
 /* line 48, ../../../.rvm/gems/ruby-1.9.2-p290@global/gems/compass-0.11.beta.2/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
-article#resume > header address ul li:first-child, article#resume > header address ul li.first {
+article#resume > header ul#resources li:first-child, article#resume > header ul#resources li.first {
   padding-left: 0;
 }
 /* line 49, ../../../.rvm/gems/ruby-1.9.2-p290@global/gems/compass-0.11.beta.2/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
-article#resume > header address ul li:last-child {
+article#resume > header ul#resources li:last-child {
   padding-right: 0;
 }
 /* line 50, ../../../.rvm/gems/ruby-1.9.2-p290@global/gems/compass-0.11.beta.2/frameworks/compass/stylesheets/compass/utilities/lists/_horizontal-list.scss */
-article#resume > header address ul li.last {
+article#resume > header ul#resources li.last {
   padding-right: 0;
 }
 /* line 13, ../_sass/_resume.scss */
-article#resume > header address ul li + li {
+article#resume > header ul#resources li + li {
   border-left: 1px solid #dfdfdf;
 }
-/* line 21, ../_sass/_resume.scss */
+/* line 16, ../_sass/_resume.scss */
+article#resume > header ul#resources li#pdf-download a {
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  background: url('data:image/gif;base64,R0lGODlhEAAQAMQAAOawsf88P7W1t/4oK/FsbeSPkfh6fNoSFevY2uNdXj8/P+ft8dlRUasCBd08O9NlafBNTry8v/r8/MfHyX9/giUlJYsBA/Pz88HBwevr6/oIC9LS0tvb26ysrOPj4////yH5BAAAAAAALAAAAAAQABAAAAWa4CduQmeenSeuXzRhUVRSXseJBgFBQR8MB4qkdjP8NMhkQzhMEQaDJPJgoVitG6ply916JhNXZIXZTDYcBsfDMXMEZA/6wvBk2BsPXIRhZxAOBRd3eR1xHhcGCwUAgxwZhnwZfxAAADsQgpEfGBcXCQAIFxILAA+QcQmCdx54HJsYBAQXrRxtG2WwEhKTtW1nmxEKFcTFxQoCIQA7') no-repeat center;
+  display: block;
+  height: 16px;
+  width: 16px;
+}
+/* line 31, ../_sass/_resume.scss */
 article#resume > section {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 25, ../_sass/_resume.scss */
+/* line 35, ../_sass/_resume.scss */
 article#resume > section > h1 {
   display: inline;
   float: left;
@@ -1253,39 +1260,39 @@ article#resume > section > h1 {
   font-style: italic;
   width: 25%;
 }
-/* line 32, ../_sass/_resume.scss */
+/* line 42, ../_sass/_resume.scss */
 article#resume > section > ul, article#resume > section > p {
   display: inline;
   float: right;
   margin-right: 1.5em;
   width: 65%;
 }
-/* line 38, ../_sass/_resume.scss */
+/* line 48, ../_sass/_resume.scss */
 article#resume > section + section {
   border-top: 1px solid #dfdfdf;
   padding-top: 2em;
 }
-/* line 47, ../_sass/_resume.scss */
+/* line 57, ../_sass/_resume.scss */
 article#resume section#technical-skillset ul span {
   color: #555;
   font-size: 80%;
 }
-/* line 56, ../_sass/_resume.scss */
+/* line 66, ../_sass/_resume.scss */
 article#resume section#work-experience > ul, article#resume section#education > ul {
   list-style-image: none;
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 61, ../_sass/_resume.scss */
+/* line 71, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li + li, article#resume section#education > ul > li + li {
   margin-top: 20px;
 }
-/* line 65, ../_sass/_resume.scss */
+/* line 75, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h2, article#resume section#education > ul > li h2 {
   font-size: 1.4em;
   margin-bottom: 0;
 }
-/* line 70, ../_sass/_resume.scss */
+/* line 80, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -1299,7 +1306,7 @@ article#resume section#work-experience > ul > li h3, article#resume section#educ
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
   *display: inline;
 }
-/* line 75, ../_sass/_resume.scss */
+/* line 85, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h3:last-child:before, article#resume section#education > ul > li h3:last-child:before {
   content: " | ";
 }

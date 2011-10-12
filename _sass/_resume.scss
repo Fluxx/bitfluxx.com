@@ -4,13 +4,23 @@ $resume-section-spacing: 2em;
 article#resume {
 
   > header {
-    address {
+    ul#resources {
       @include float-right;
+      @include horizontal-list(10px);
+
       font-style: normal;
-      
-      ul {
-        @include horizontal-list(10px);
-        li + li { border-left: 1px solid $resume-hr-color; }
+
+      li + li { border-left: 1px solid $resume-hr-color; }
+
+      li#pdf-download {
+        a {
+          @include hide-text;
+
+          background: inline-image("pdf_icon.gif") no-repeat center;
+          display: block;
+          height: image-height("pdf_icon.gif");
+          width: image-width("pdf_icon.gif");
+        }
       }
     }
 
