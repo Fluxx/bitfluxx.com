@@ -1083,17 +1083,12 @@ article#resume > header address ul li.last {
 article#resume > header address ul li + li {
   border-left: 1px solid #dfdfdf;
 }
-/* line 17, ../_sass/_resume.scss */
-article#resume > header h2 {
-  font-size: 1.5em;
-  font-style: italic;
-}
-/* line 26, ../_sass/_resume.scss */
+/* line 21, ../_sass/_resume.scss */
 article#resume > section {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 30, ../_sass/_resume.scss */
+/* line 25, ../_sass/_resume.scss */
 article#resume > section > h1 {
   display: inline;
   float: left;
@@ -1101,39 +1096,39 @@ article#resume > section > h1 {
   font-style: italic;
   width: 25%;
 }
-/* line 37, ../_sass/_resume.scss */
+/* line 32, ../_sass/_resume.scss */
 article#resume > section > ul, article#resume > section > p {
   display: inline;
   float: right;
   margin-right: 1.5em;
   width: 65%;
 }
-/* line 43, ../_sass/_resume.scss */
+/* line 38, ../_sass/_resume.scss */
 article#resume > section + section {
   border-top: 1px solid #dfdfdf;
   padding-top: 2em;
 }
-/* line 52, ../_sass/_resume.scss */
+/* line 47, ../_sass/_resume.scss */
 article#resume section#technical-skillset ul span {
   color: #555;
   font-size: 80%;
 }
-/* line 61, ../_sass/_resume.scss */
+/* line 56, ../_sass/_resume.scss */
 article#resume section#work-experience > ul, article#resume section#education > ul {
   list-style-image: none;
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 66, ../_sass/_resume.scss */
+/* line 61, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li + li, article#resume section#education > ul > li + li {
   margin-top: 20px;
 }
-/* line 70, ../_sass/_resume.scss */
+/* line 65, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h2, article#resume section#education > ul > li h2 {
   font-size: 1.4em;
   margin-bottom: 0;
 }
-/* line 75, ../_sass/_resume.scss */
+/* line 70, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
   display: -moz-inline-box;
   -moz-box-orient: vertical;
@@ -1147,7 +1142,7 @@ article#resume section#work-experience > ul > li h3, article#resume section#educ
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
   *display: inline;
 }
-/* line 80, ../_sass/_resume.scss */
+/* line 75, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h3:last-child:before, article#resume section#education > ul > li h3:last-child:before {
   content: " | ";
 }
