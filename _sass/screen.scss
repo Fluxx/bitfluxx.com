@@ -21,7 +21,14 @@ section#bio {
 #about {
 	p#author {
 	  @include float-right;
-	  margin-left: 20px;
+	  margin: 0 30px;
+
+    img {
+      @include single-box-shadow(#DDD, 4px, 4px, 12px);
+      @include rotate(5deg);
+      border: 7px solid white;
+      border-bottom-width: 35px;
+    }
 	}
 
 	a#html5-badge {

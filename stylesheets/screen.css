@@ -1333,9 +1333,23 @@ section#bio {
 #about p#author {
   display: inline;
   float: right;
-  margin-left: 20px;
+  margin: 0 30px;
 }
-/* line 27, ../_sass/screen.scss */
+/* line 26, ../_sass/screen.scss */
+#about p#author img {
+  -moz-box-shadow: 4px 4px 12px #dddddd;
+  -webkit-box-shadow: 4px 4px 12px #dddddd;
+  -o-box-shadow: 4px 4px 12px #dddddd;
+  box-shadow: 4px 4px 12px #dddddd;
+  -moz-transform: rotate(5deg);
+  -webkit-transform: rotate(5deg);
+  -o-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  transform: rotate(5deg);
+  border: 7px solid white;
+  border-bottom-width: 35px;
+}
+/* line 34, ../_sass/screen.scss */
 #about a#html5-badge {
   display: inline;
   float: left;
