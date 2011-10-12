@@ -29,7 +29,7 @@ article#resume {
 
     > h1 {
       @include float-left;
-      font-size: 2em;
+      font-size: 1.8em;
       font-style: italic;
       width: 25%;
     }
@@ -68,14 +68,14 @@ article#resume {
         }
 
         h2 {
-          font-size: 1.6em;
+          font-size: 1.4em;
           margin-bottom: 0;
         }
 
         h3 {
           @include inline-block;
           color: #999;
-          font-size: 1.2em;
+          font-size: 1em;
 
           &:last-child:before {
             content: " | ";

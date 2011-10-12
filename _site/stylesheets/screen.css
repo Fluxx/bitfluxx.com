@@ -1254,7 +1254,7 @@ article#resume > section {
 article#resume > section > h1 {
   display: inline;
   float: left;
-  font-size: 2em;
+  font-size: 1.8em;
   font-style: italic;
   width: 25%;
 }
@@ -1287,7 +1287,7 @@ article#resume section#work-experience > ul > li + li, article#resume section#ed
 }
 /* line 70, ../_sass/_resume.scss */
 article#resume section#work-experience > ul > li h2, article#resume section#education > ul > li h2 {
-  font-size: 1.6em;
+  font-size: 1.4em;
   margin-bottom: 0;
 }
 /* line 75, ../_sass/_resume.scss */
@@ -1298,7 +1298,7 @@ article#resume section#work-experience > ul > li h3, article#resume section#educ
   vertical-align: middle;
   *vertical-align: auto;
   color: #999;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 /* line 7, ../../../.rvm/gems/ruby-1.9.2-p290@global/gems/compass-0.11.beta.2/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 article#resume section#work-experience > ul > li h3, article#resume section#education > ul > li h3 {
