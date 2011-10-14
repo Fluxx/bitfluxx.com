@@ -6,6 +6,7 @@ group :development do
   gem 'RedCloth'
   gem 'terminitor'
   gem 'compass'
+  gem 'growl'
 end
 
 gem 'rack-jekyll', :require => "rack/jekyll"
