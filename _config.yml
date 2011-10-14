@@ -1,2 +1,2 @@
 pygments: true
-exclude: [Gemfile, Gemfile.lock, config.ru, Termfile]
+exclude: [Gemfile, Gemfile.lock, config.ru, Termfile, Rakefile]
