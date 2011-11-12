@@ -36,7 +36,8 @@
     <p><time datetime="" pubdate>Written 30 Apr 2011</time></p>
   </header>
 
-  <p>I just open-sourced my latest project, <a href="https://github.com/Fluxx/distillery">Distillery</a>: a simple ruby gem that finds and extracts the &#8220;content&#8221; portion of an <span class="caps">HTML</span> document.  The algorithm is heavily influenced by <a href="http://readability.com/">Readability</a>, who were nice enough to make <a href="http://code.google.com/p/arc90labs-readability/source/browse/trunk/js/readability.js">their logic</a> open source.  In fact, the algorithm in Distillery to find the content element is nearly identical to that of Readability.  However, while Readability&#8217;s algorithm aggressively cleans the content element <span class="caps">HTML</span> for display and online reading, Distillery allows the user to choose how (and if) they would like to clean content element <span class="caps">HTML</span>.</p>
+  <section>
+    <p>I just open-sourced my latest project, <a href="https://github.com/Fluxx/distillery">Distillery</a>: a simple ruby gem that finds and extracts the &#8220;content&#8221; portion of an <span class="caps">HTML</span> document.  The algorithm is heavily influenced by <a href="http://readability.com/">Readability</a>, who were nice enough to make <a href="http://code.google.com/p/arc90labs-readability/source/browse/trunk/js/readability.js">their logic</a> open source.  In fact, the algorithm in Distillery to find the content element is nearly identical to that of Readability.  However, while Readability&#8217;s algorithm aggressively cleans the content element <span class="caps">HTML</span> for display and online reading, Distillery allows the user to choose how (and if) they would like to clean content element <span class="caps">HTML</span>.</p>
 <p>Usage of Distillery quite simple:</p>
 <div class="highlight"><pre><code class="ruby"><span class="no">Distillery</span><span class="o">.</span><span class="n">distill</span><span class="p">(</span><span class="n">html_doc_as_a_string</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="s2">&quot;distilled content&quot;</span>
@@ -53,6 +54,25 @@
 <span class="o">[</span>...<span class="o">]</span>
 </code></pre>
 </div><p>For more details on Distillery, please see the <a href="https://github.com/Fluxx/distillery">Readme</a> or the <a href="http://rubydoc.info/gems/distillery/0.1.0/frames">RDocs</a>.</p>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

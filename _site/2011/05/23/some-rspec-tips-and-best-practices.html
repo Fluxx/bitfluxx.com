@@ -36,7 +36,8 @@
     <p><time datetime="" pubdate>Written 23 May 2011</time></p>
   </header>
 
-  <p>I&#8217;ve been working a lot with <a href="http://relishapp.com/rspec">RSpec</a> lately, in close conjunction with my coworker <a href="http://myronmars.to/n/">Myron Marston</a>, who happens to be a committer to RSpec.  He&#8217;s shown me how a lot of features in RSpec work, how they&#8217;re useful and some best practices to use.  I thought I&#8217;d share some of my favorite ones.</p>
+  <section>
+    <p>I&#8217;ve been working a lot with <a href="http://relishapp.com/rspec">RSpec</a> lately, in close conjunction with my coworker <a href="http://myronmars.to/n/">Myron Marston</a>, who happens to be a committer to RSpec.  He&#8217;s shown me how a lot of features in RSpec work, how they&#8217;re useful and some best practices to use.  I thought I&#8217;d share some of my favorite ones.</p>
 <h2><code>let{}</code></h2>
 <p>I used to write specs like this:</p>
 <div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="no">User</span><span class="p">,</span> <span class="s1">&#39;#locate&#39;</span>
@@ -143,6 +144,25 @@
 <div class="highlight"><pre><code class="ruby"><span class="n">rspec</span> <span class="o">--</span><span class="n">tag</span> <span class="n">issue</span><span class="p">:</span><span class="mi">12345</span> <span class="n">user_spec</span><span class="o">.</span><span class="n">rb</span>
 </code></pre>
 </div><p>There are lots of <a href="http://relishapp.com/rspec/rspec-core/v/2-6/dir/command-line/tag-option">other <code>--tag</code> command line options</a> to let you include or exclude specs based on your tags.</p>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

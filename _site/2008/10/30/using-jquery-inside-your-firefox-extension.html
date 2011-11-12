@@ -36,7 +36,8 @@
     <p><time datetime="" pubdate>Written 30 Oct 2008</time></p>
   </header>
 
-  <p>For a project at work we&#8217;ve been building a Firefox extension. It&#8217;s slow, tedious work, with lots of time spent in the breakpointer functionality of <a href="http://www.mozilla.org/projects/venkman/">Venkman</a>. Thankfully Firefox extensions are basically javascript, and as I heard rumors of, you can embed <a href="http://jquery.com/">jQuery</a> inside of one.</p>
+  <section>
+    <p>For a project at work we&#8217;ve been building a Firefox extension. It&#8217;s slow, tedious work, with lots of time spent in the breakpointer functionality of <a href="http://www.mozilla.org/projects/venkman/">Venkman</a>. Thankfully Firefox extensions are basically javascript, and as I heard rumors of, you can embed <a href="http://jquery.com/">jQuery</a> inside of one.</p>
 <p>How? Well it&#8217;s quite simple. In your overlay.xul file, just include it like you would any other js file.</p>
 <div class="highlight"><pre><code class="javascript"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;application/x-javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;chrome://extensionname/content/jquery-1.2.6.min.js&quot;</span> <span class="o">/&gt;</span>
 </code></pre>
@@ -50,6 +51,25 @@
 <span class="nx">jQuery</span><span class="p">(</span><span class="s2">&quot;a[rel=&#39;nofollow&#39;]&quot;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="nx">border</span><span class="o">:</span> <span class="s1">&#39;dotted 1px red&#39;</span><span class="p">,</span> <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;pink&#39;</span><span class="p">});</span>
 </code></pre>
 </div><p>Now you have the power!</p>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

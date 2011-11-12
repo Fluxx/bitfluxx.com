@@ -36,7 +36,8 @@
     <p><time datetime="" pubdate>Written 25 Apr 2010</time></p>
   </header>
 
-  <p>Once I upgraded by install of <a href="http://gembundler.com/">Bundler</a> this morning and decided to try locking my <code>Gemfile</code> in my latest freelance project.  Everything was going well until I experienced the following:</p>
+  <section>
+    <p>Once I upgraded by install of <a href="http://gembundler.com/">Bundler</a> this morning and decided to try locking my <code>Gemfile</code> in my latest freelance project.  Everything was going well until I experienced the following:</p>
 <div class="highlight"><pre><code class="bash">jefflaptop-2:widgets jeff <span class="o">[</span>bundler_test<span class="o">]</span> <span class="nv">$ </span>bundle <span class="nb">exec </span>rake
 <span class="o">(</span>in /Users/jeff/Workspace/widgets<span class="o">)</span>
 rake aborted!
@@ -62,6 +63,25 @@ no such file to load -- bundler
 <p>The subtle thing about <code>bundle exec</code>, is that it basically does the 3 lines of code above <em>for you</em>.   When I added those 3 lines above to my <code>Rakefile</code>, the <code>require "bundler"</code>@ failed because I had essentially already run <code>Bundler.setup</code>, so bundler was managing all my dependencies.  Since I hadn&#8217;t added the bundler gem to my <code>Gemfile</code>, it wasn&#8217;t put in my load path by the Bundler, thus I received my load error.</p>
 <p>The punchline through all of this is this: if you have a file that is going to be executed by <code>bundle exec</code>, you can leave those 3 lines of code out completely and everything will be totally happy.  This includes ruby files, i.e. <code>bundle exec ruby my_program.rb</code>.  Just assume the first line of code in your file will already have their loadpaths figured out and all you have to do is start requiring stuff.</p>
 <p>In general though, I would avoid putting the 3 lines of setup in any program or lib you are going to write, even ones not run with <code>bundle exec</code>.  Rubygems, but <em>especially</em> the bundler, are a way to manage dependencies for your application.  You shouldn&#8217;t assume that a user of your lib is going to use Bundler to manage their dependencies.  As <a href="http://tomayko.com/writings/require-rubygems-antipattern">Ryan Tomayko says</a>, even <code>require "rubygems"</code> is a bad assumption.  What I use to manage my <code>$LOAD_PATH</code> is my concern, not yours as the library writer.</p>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

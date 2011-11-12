@@ -36,7 +36,8 @@
     <p><time datetime="" pubdate>Written 22 Feb 2011</time></p>
   </header>
 
-  <p>Yesterday I released a simple gem that adds RSpec custom matchers for Ruby encodings.  It&#8217;s got the amazingly creative title of <a href="https://github.com/fluxx/rspec-encoding-matchers">rspec-encoding-matchers</a>.  It&#8217;s nothing fancy, but does make it easy to test the encoding of strings in RSpec and Ruby 1.9.</p>
+  <section>
+    <p>Yesterday I released a simple gem that adds RSpec custom matchers for Ruby encodings.  It&#8217;s got the amazingly creative title of <a href="https://github.com/fluxx/rspec-encoding-matchers">rspec-encoding-matchers</a>.  It&#8217;s nothing fancy, but does make it easy to test the encoding of strings in RSpec and Ruby 1.9.</p>
 <p>The gem adds a couple matchers.  There is the simple matcher to check if a string is encoded in the right encoding:</p>
 <div class="highlight"><pre><code class="ruby"><span class="c1"># Matcher takes the name of a supported Ruby encoding as a string or symbol</span>
 <span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_encoded_as</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
@@ -63,6 +64,25 @@
 <span class="k">end</span>
 </code></pre>
 </div>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>

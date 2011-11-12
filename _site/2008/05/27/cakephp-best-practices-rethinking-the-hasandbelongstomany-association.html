@@ -36,7 +36,8 @@
     <p><time datetime="" pubdate>Written 27 May 2008</time></p>
   </header>
 
-  <p>When you&#8217;re first learning about CakePHP (or any kind of <span class="caps">MVC</span> associations), the hasAndBelongsToMany relationship is a powerful one.  In a nutshell, it allows you to associate one model to another, without making it an exclusive association.  So for example&#8230;if you&#8217;re building a tagging system for your bloging platform, a Post  hasAndBelongsToMany Tags.  The <a href="http://manual.cakephp.org/chapter/models">CakePHP manual chapter on models</a> has more information if you&#8217;re still a little confused.</p>
+  <section>
+    <p>When you&#8217;re first learning about CakePHP (or any kind of <span class="caps">MVC</span> associations), the hasAndBelongsToMany relationship is a powerful one.  In a nutshell, it allows you to associate one model to another, without making it an exclusive association.  So for example&#8230;if you&#8217;re building a tagging system for your bloging platform, a Post  hasAndBelongsToMany Tags.  The <a href="http://manual.cakephp.org/chapter/models">CakePHP manual chapter on models</a> has more information if you&#8217;re still a little confused.</p>
 <p>And in most cases, this association works well.  You define a &#8220;join table&#8221; that contains 2 fields, as in our blogging example, a <code>post_id</code> and <code>tag_id</code> columns.  Thanks to Cake&#8217;s built in framework code to handle this association, you&#8217;re up and running in no time.</p>
 <p>But what happens when you need to store more information about the association?  For example, imagine if you&#8217;re building an online ordering system.  Orders can contain multiple products, so you&#8217;ll need to say that an Order hasAndBelongsToMany Item.  But each Item/Order association also needs to have some other ancillary information &#8211; such as the price the customer paid for that item on that order.  With the traditional hasAndBelongsToMany relationship, you can&#8217;t do that.</p>
 <p>To solve this, we&#8217;re going to borrow from Rails once again, utilizing the principal of their <code>hasMany :through</code> functionality.</p>
@@ -69,6 +70,25 @@
 <p>The cool part about is that since your &#8220;join table&#8221; is now a full fledged model, you get all the things that come with a model &#8211; like a real database table, other associations, attributes, primary keys, etc.  Adding that &#8220;price&#8221; attribute for each Item joined to an Order is as simple as adding a <code>price</code> column to the <code>line_items</code> table.</p>
 <p>With this method, however, comes some lack of convenience.  With the default Cake hasAndBelongsToMany relationship, if you want to save an Order and all its associated tags, you just add an input field (like a multiple select) with <code>data[Item][Item]</code> in the Post form, and Cake does the rest.</p>
 <p>With this new method, you can still have the multiple select in your Order add form, but you&#8217;ll have to add some extra code to handle the incoming <code>data[Item][Item]</code> data and save an associated LineItem models.  It&#8217;s just a little bit of overhead, but well worth the flexibility you get with the hasMany :through method.</p>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
 </article></section>
 
     <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
