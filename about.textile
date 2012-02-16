@@ -6,7 +6,7 @@ section: about
 
 p(#author). !/images/me.jpg(Jeff Pollard)!
 
-This is the blog and personal website of Jeff Pollard, a software developer currently living in Seattle, WA.  I "mostly write ruby":projects.html, but also dabble in Python and am constantly learning as much as I possibly can about writing software.  I also love music, dogs (especially mine), beer and my "wonderful girlfriend":http://allthingssimpleblog.com/.
+This is the blog and personal website of Jeff Pollard, a software developer recently transplanted to San Francisco, CA and hacking on open source and infrastructure at "DISQUS":http://disqus.com.  I "mostly write ruby and Python":projects.html and am constantly learning as much as I possibly can about writing software.  I also love music, dogs (especially mine), beer and my "wonderful girlfriend":http://allthingssimpleblog.com/.
 
 Find me at these lovely online establishments:
 
@@ -14,6 +14,7 @@ Find me at these lovely online establishments:
 * "Facebook":http://www.facebook.com/jeffpollard
 * "Github":https://github.com/fluxx
 * "Hacker News":http://news.ycombinator.com/user?id=Fluxx
+* "DISQUS":http://disqus.com/nfluxx/
 
 For more information on me, please see "my résumé":/resume.html.
 
