@@ -48,7 +48,8 @@
 <span class="x">$this-&gt;set(&#39;reviews&#39;, $reviews);</span>
 <span class="x">$this-&gt;set(&#39;other_reviews&#39;, $this-&gt;Artist-&gt;Review-&gt;findCount($review_cond)-5);</span>
 </code></pre>
-</div><p>Good code should be easy to read and should communicate intent quickly.  That code does neither.  I actually wrote the code above a long time ago and it took me 2 minutes just now to figure out what that code did!  That&#8217;s not good.  Now imagine if you had a coworker or someone else tried to read that code?  They&#8217;d be at a total loss.</p>
+</div>
+<p>Good code should be easy to read and should communicate intent quickly.  That code does neither.  I actually wrote the code above a long time ago and it took me 2 minutes just now to figure out what that code did!  That&#8217;s not good.  Now imagine if you had a coworker or someone else tried to read that code?  They&#8217;d be at a total loss.</p>
 <p>While Cake&#8217;s built in model functions like <code>findAll()</code> are nice and very helpful (we&#8217;ll still use them when we recode this), when you fill their parameters chaulk full of hard to read arrays and long strings, all meaning of what that line of controller-code does goes out the window.</p>
 <p>The answer to fat controllers is to make your model fat instead.  The model is supposed to represent some object.  In the above code sample we&#8217;re trying to get an Artist&#8217;s most recent reviews, so we should be asking the Artist model to do that for us.</p>
 <p>With that in mind, here is the same functionality achieved from the previous example put in the Artist model&#8230;</p>
@@ -59,10 +60,12 @@
 <span class="x">    return $this-&gt;Review-&gt;findAll($conditions, $fields, $this-&gt;name.&quot;.$sort&quot;, $number);</span>
 <span class="x">}</span>
 </code></pre>
-</div><p>Then in your controller, the only code you need to write is&#8230;</p>
+</div>
+<p>Then in your controller, the only code you need to write is&#8230;</p>
 <div class="highlight"><pre><code class="php"><span class="x">$this-&gt;Artist-&gt;getRecentReviews(5);</span>
 </code></pre>
-</div><p>Muuuuuuuuch simpler.  Anyone coming along can easily tell what that section of code in the controller is doing &#8211; simply by reading the name of the function.  This is what people are talking about then they say code is &#8220;self documenting&#8221; &#8211; the name of the function tells you what the code is doing.  The same code that was in the controller is still there and now in the model.  By putting it there, it forces you to think how to abstract its functionality &amp; makes it reusable for the future.</p>
+</div>
+<p>Muuuuuuuuch simpler.  Anyone coming along can easily tell what that section of code in the controller is doing &#8211; simply by reading the name of the function.  This is what people are talking about then they say code is &#8220;self documenting&#8221; &#8211; the name of the function tells you what the code is doing.  The same code that was in the controller is still there and now in the model.  By putting it there, it forces you to think how to abstract its functionality &amp; makes it reusable for the future.</p>
 <p>Skinny controllers and fat models <a href="http://cakebaker.42dh.com/#post-562">isn&#8217;t exactly a new idea</a> in the CakePHP world, but it is one that&#8217;s facing slow adoption.  As I see it, the main reason for the lack adoption is the absence of model behaviors and focus on controller components in the current stable version of Cake (1.1).  Without some custom coding, there really isn&#8217;t a way to quicky and easily utilize 3rd party code to extend your model and inherit additional functionality.  Thus, you think of models only as a place to declare associations and validation.</p>
 <p>People coding in 1.1 still make heavy use of components and as such get used to putting a large portion of their code in the controller.  That will change as 1.1 gives way to 1.2, and CakePHP and its community evolve in to a more robust and adult web framework, but for right now try your hardest to have fat models and skinny controllers.</p>
   </section>

@@ -41,16 +41,19 @@
 <p>How? Well it&#8217;s quite simple. In your overlay.xul file, just include it like you would any other js file.</p>
 <div class="highlight"><pre><code class="javascript"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;application/x-javascript&quot;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;chrome://extensionname/content/jquery-1.2.6.min.js&quot;</span> <span class="o">/&gt;</span>
 </code></pre>
-</div><p>Yup, that&#8217;s it! Now you have access to all the usual jQuery functionality like <code>element.click()</code>, <code>element.attr()</code> and even the <code>$.ajax</code> calls, all within the scope of your extension. Thus, you can write extension code like this:</p>
+</div>
+<p>Yup, that&#8217;s it! Now you have access to all the usual jQuery functionality like <code>element.click()</code>, <code>element.attr()</code> and even the <code>$.ajax</code> calls, all within the scope of your extension. Thus, you can write extension code like this:</p>
 <div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.toggle&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 </code></pre>
-</div><p>Where it will select all <span class="caps">XUL</span> elements in your extension with the class toggle and set the disabled attribute to true.</p>
+</div>
+<p>Where it will select all <span class="caps">XUL</span> elements in your extension with the class toggle and set the disabled attribute to true.</p>
 <p>If you want to have access to the browser <span class="caps">DOM</span>, you can access it via the <a href="https://developer.mozilla.org/en/DOM/document.defaultView"><code>document.defaultView</code></a> attriute globally.  Most times the defaultView variable is available inside of the event object if you&#8217;ve bound to one. Then, in order to effect the browser <span class="caps">DOM</span>, all you have to do is make use of the (often ignored) 2nd parameter of the <a href="http://docs.jquery.com/Core/jQuery#expressioncontext"><code>$ function</code></a>, the context you&#8217;d like jQuery to work in.</p>
 <p>In our case it&#8217;s the browser&#8217;s <span class="caps">DOM</span>.  For example, to highlight all links on the page that are <code>rel=nofollow</code>, you just have to do this:</p>
 <div class="highlight"><pre><code class="javascript"><span class="nx">doc</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span><span class="p">;</span>
 <span class="nx">jQuery</span><span class="p">(</span><span class="s2">&quot;a[rel=&#39;nofollow&#39;]&quot;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="nx">border</span><span class="o">:</span> <span class="s1">&#39;dotted 1px red&#39;</span><span class="p">,</span> <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;pink&#39;</span><span class="p">});</span>
 </code></pre>
-</div><p>Now you have the power!</p>
+</div>
+<p>Now you have the power!</p>
   </section>
 
   
