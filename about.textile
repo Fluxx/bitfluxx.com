@@ -23,3 +23,5 @@ h2. About This Site
 <a href="http://www.w3.org/html/logo/" id="html5-badge"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" width="165" height="64" alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics"></a>
 
 This site is built using HTML5 and CSS3, assisted by the "Jekyl":https://github.com/mojombo/jekyll and "Compass":https://github.com/chriseppstein/compass projects and hosted by "Heroku":http://www.heroku.com.  The source of this site is "available on Github":https://github.com/fluxx/bitfluxx.com.
+
+The symbol in the logo is Unicode character @U+10C5 GEORGIAN CAPITAL LETTER HOE@.  I liked the way it looked.
