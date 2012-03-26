@@ -42,14 +42,12 @@
 <div class="highlight"><pre><code class="ruby"><span class="c1"># Matcher takes the name of a supported Ruby encoding as a string or symbol</span>
 <span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_encoded_as</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
 </code></pre>
-</div>
-<p>Or there is also a long list of <code>be_xxxxxxx_encoded</code> matchers to check if a string is of a certain encoding:</p>
+</div><p>Or there is also a long list of <code>be_xxxxxxx_encoded</code> matchers to check if a string is of a certain encoding:</p>
 <div class="highlight"><pre><code class="ruby"><span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_binary_encoded</span>
 <span class="s2">&quot;my string&quot;</span><span class="o">.</span><span class="n">should</span> <span class="n">be_stateless_iso_2022_jp_encoded</span>
 <span class="c1"># ...repeat for all supported Ruby encodings</span>
 </code></pre>
-</div>
-<p>The full list of 163 matchers is available <a href="https://github.com/Fluxx/rspec-encoding-matchers/blob/master/README.md">in the readme</a>.</p>
+</div><p>The full list of 163 matchers is available <a href="https://github.com/Fluxx/rspec-encoding-matchers/blob/master/README.md">in the readme</a>.</p>
 <p>To use the custom matchers in your specs, simply include the matcher module either in an example group:</p>
 <div class="highlight"><pre><code class="ruby"><span class="n">describe</span> <span class="s2">&quot;my group&quot;</span> <span class="k">do</span>
   <span class="kp">include</span> <span class="no">RspecEncodingMatchers</span>
@@ -58,8 +56,7 @@
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-</div>
-<p>Or you can include the module in your RSpec configuration.</p>
+</div><p>Or you can include the module in your RSpec configuration.</p>
 <div class="highlight"><pre><code class="ruby"><span class="c1"># spec_helper.rb</span>
 <span class="no">RSpec</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="n">config</span><span class="o">.</span><span class="n">color_enabled</span> <span class="o">=</span> <span class="kp">true</span>

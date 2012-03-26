@@ -42,15 +42,13 @@
   <span class="n">haml</span> <span class="ss">:index</span>
 <span class="k">end</span>
 </code></pre>
-</div>
-<p>In this exampple, it uses Sinatra&#8217;s built in haml function to run the <code>./views/index.haml</code> template.  But you can add whatever ruby code inside the functions you want, such as &#8220;hello world,&#8221; ActiveRecord or accept a form <span class="caps">POST</span>.</p>
+</div><p>In this exampple, it uses Sinatra&#8217;s built in haml function to run the <code>./views/index.haml</code> template.  But you can add whatever ruby code inside the functions you want, such as &#8220;hello world,&#8221; ActiveRecord or accept a form <span class="caps">POST</span>.</p>
 <p>The one thing missing was the ability to have a sitewide layout, that would wrap the output from your routing. I searched the <a href="http://www.sinatrarb.com/docs/sinatra/index.html">Sinatra documentation</a> over and over, finally finding the <a href="http://www.sinatrarb.com/docs/sinatra/files/lib/sinatra_rb.html#M000099">layout function</a>.  There wasn&#8217;t much there, but playing around with the code I managed to figure out how it works.</p>
 <p>By default, Sintara will look for a <code>./views/layout.ext</code> file to use as a template, where &#8220;ext&#8221; is replaced with your templating-system specific extenstion. For instance, if you&#8217;re using <a href="http://www.ruby-doc.org/stdlib/libdoc/erb/rdoc/">erb</a> it&#8217;s <code>layout.erb</code> and if it&#8217;s <a href="http://haml.hamptoncatlin.com/">haml</a> you use <code>layout.haml</code>. If you just return markup with your route, it will not use any template file.</p>
 <p>Now, if you want to use a different layout than the standard one, you&#8217;ll have to specify that in your template function like so.</p>
 <div class="highlight"><pre><code class="ruby"><span class="n">haml</span> <span class="ss">:index</span><span class="p">,</span> <span class="p">{</span><span class="ss">:layout</span> <span class="o">=&gt;</span> <span class="ss">:special</span><span class="p">}</span>
 </code></pre>
-</div>
-<p>That&#8217;s it!</p>
+</div><p>That&#8217;s it!</p>
 <p>Hope this helps some people trying to figure out layouts in Sinatra.</p>
   </section>
 

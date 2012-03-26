@@ -1,0 +1,87 @@
+---
+layout: post
+title: Welcome to the Jungle
+---
+
+Let's see, the last time I wrote a post was...
+
+{% highlight bash %}
+➜  _posts git:(master) ls -1 | sort -r | head -1
+2011-08-21-message-passing-and-fun-with-erlang.textile
+{% endhighlight %}
+
+August 2011.  Yeah.
+
+A lot of things have changed since then.  I left my "previous job":http://www.seomoz.org, and "started a new one":http://blog.disqus.com/post/16134186401/jeff-and-jon.  To work at the new job, I've also moved with my Girlfriend from Seattle to San Francisco.  I had the previous job for five and&ndash;a&ndash;half years and lived in Seattle (or the surrounding area) for twenty&ndash;two years.  It's probably the biggest change I've made in my life&hellip;well, ever.
+
+Part of the new job has been the experience of writing serious Python for the first time.  I had dabbled in it a little bit here and there, but never anything serious.  I always used Ruby at my day job, really enjoyed it, and was happy being a part of and contributing to that ecosystem.
+
+Two months in to my Python experience, I have to say I like the language quite a lot.  I'll save my musings on Python for another post, because in this one I wanted to talk about my recent experience attending "Pycon":http://us.pycon.org/2012/ a couple weekends ago, and how it compares to attending "Rubyconf":http://rubyconf.org/ just 6 months earlier.
+
+First, let's talk some numbers.  Rubyconf had just a few hundred people for 3 tracks over 3 days with maybe a dozen sponsors.  Pycon was "much, much bigger":http://dl.dropbox.com/u/3663715/pycon.JPG -- 2,200+ people for five jam packed tracks with 100+ sponsors.  On the two days preceding the conference, Pycon also has "Tutorial Sessions":https://us.pycon.org/2012/schedule/tutorials/ you can attend (for a fee) on a variety of Python topics, and for three-and-half days following the conference you can attend "Development Sprints" where you hang out with other Python developers and work on your own (or others) projects.
+
+The makeup of the Pycon crowd was certainly a lot older than the Rubyconf crowd.  The Rubyconf average attendee age was probably a solid late twenties, while Pycon was certainly 30+, if not a bit older.  Pycon also had a lot more "classic nerdy" attendees -- I saw way more neck-beards, pony tails and combinations thereof than at Rubyconf.  Pycon also had ~50% Apple laptops, while Rubyconf was 90% or higher.  I also heard "Windows" mentioned many more times than at Rubyconf, and most of the time it was for _serious reasons_ and not as the butt of a joke!
+
+!(inset)/images/piggy.png(Piggy)!
+
+I think these differences are very emblematic of the two languages.  Python is an older, more established language than Ruby, and as a result has more, and larger, companies with a vested interest in its future.  There is also a large scientific community using Python, which the Ruby community does not have at all.  Thus I think Python tends to attract an older, more "serious" and seasoned crowd of developers.
+
+h2. Attitudes
+
+When I mentioned that I knew Ruby at the conference, most of the replies were either a questioning expression followed by "that's cool," or some sort of "lolruby" reference.  Some people knew some things about Ruby, and often had questions like, "is it true that in Ruby when you do X, it does something that is totally counter to how Python does it?"  I'd explain that, "yes, it is, but there are some good things that go with doing X," so it's actually not a **totally batshit crazy** thing to do.
+
+Talking to people at Pycon, I quickly got the impression that Ruby was viewed as an interior language.  Not an inferior language _compared_ to Python...just an inferior language, period.  I firmly believe that not very many people at the conference would use Ruby over Python for *any* kind of project.  Granted this was at Pycon, so it was certainly a pro-Python crowd.  But still, it seemed a little xenophobic.
+
+But let me be clear: all in all I had a great conference.  The people in the Python community are a wonderful group of people working on/in a great language so there isn't any love lost for me in all this.
+
+But it did get me thinking...why?  What was the issue with Ruby?
+
+h2. Explicit vs Implicit
+
+I've only been doing Python (seriously) for a couple months now, but from what I gather, the only really big difference in language features are Ruby's blocks.  There are a few smaller things where they differ -- Python is faster than Ruby in terms of speed and has more full featured stdlib -- but the most part they're quite similar in terms of functionality.
+
+Where I do see them differ, and by *quite a lot*, is in their philosophies.  And a lot of that philosophy comes down, in my opinion, to syntax and how code is commonly written.
+
+For Rubyists, syntax and legibility (I use that word strategically) matter quite a bit.  The language is so flexible in what you can do with it, that some amazing things are possible.  The simplest demonstration of this that I can think of is the following:
+
+{% highlight ruby %}
+irb(main):002:0> require 'active_support/core_ext/numeric/time'
+=> true
+irb(main):003:0> 10.seconds.ago
+=> 2012-03-11 21:26:29 -0700
+{% endhighlight %}
+
+Because you can augment "built in" types, like @Fixnum@, it's possible to add methods to the @Fixnum@ object @10@.  In this case, @#seconds@ was added by @ActiveSupport@ time core extensions.  @#seconds@ returns a @ActiveSupport::Duration@ object.  That object, in turn, has a @#ago@ method, which returns a @Time@ object that is, unsurprisingly, 10 minutes ago.
+
+To get the equivalent value in Python, you need to do this:
+
+{% highlight python %}
+>>> datetime.datetime.today() - datetime.timedelta(seconds=10)
+datetime.datetime(2012, 3, 11, 21, 55, 36, 899958)
+{% endhighlight %}
+
+I think this makes the distinction very obvious: Python's method is *explicit* while Ruby's is *implicit*.  I think it's also pretty obvious that the Ruby syntax is more "natural" and legible, but is that better?
+
+h2. Does Syntax Matter?
+
+Even if someone vehemently disagrees with it, syntax in code matters.  Python programmers have PEP8 to standardize the way code is written and "Readability counts" is part of the Zen of Python.  Python also ditches the curly brace and semicolon ceremony other "C-like" languages have.  Ruby is "maximized for programmer happiness" and, like Python, also ditches curly braces and semicolons, as well as parenthesis a lot of the time.  Coffeescript is quite popular because it is an improved syntax for writing Javascript.  Hell, even the C programming language is basically an abstraction and an easier way to write assembly.
+
+So, all other things being equal, code that has a simple and consistent syntax is better than one with a more complicated syntax.  Simpler syntaxes requires less mental tax to read, write and reason about.
+
+But it's not that simple.  All things are certainly *not* equal.  While these languages I listed above are certainly improvements in syntax and style over other languages, they have their own fair share of *downsides*.  Due to their more free form nature, both Python and Ruby are slow, Ruby much more so.  They also both have a Global Interpreter Lock (GIL) which makes it easier to integrate with C libraries (positive), but limits your ability to achieve "true concurrency" (negative).  Coffeescript can be hard to debug since your error line numbers and stacktraces are referring to the generated Javascript code, not your Coffeescript, and you've added another compilation step in your development cycle.  C requires you to manage your own memory and, well, has lots of curly braces and semicolons.
+
+h2. Seeing the Value
+
+Any language worth a damn has to serve a purpose and do _something_ better than other languages.  In my opinion, Ruby's "something" is its legibility and flexibility.  Being a more flexible language , it makes it great for writing "easy to understand DSLs":http://wiki.opscode.com/display/chef/Recipes and "powerful frameworks":http://www.rubyonrails.org and, IMO, offers a more efficient and flexible development process.
+
+The downside of all of this flexibility is that poorly written Ruby is harder to deal with than poorly written Python, so maintenance and understanding your and other code can be hard if that code is written poorly.  And, since Ruby is more flexible than Python, it's also slower.
+
+It's these downsides I think the people at Pycon fixated on.  Python meets their needs and works well, and Ruby's strengths of "legibility" and "flexibility" are hard to quantify, so they tend to view it as simply syntactical sugar, nothing more.  In addition, the way Ruby works runs counter to a lot of the core tenets of Python -- the module system + namespacing and explicitness, specifically.  I think people often view this with skepticism, since it's certainly a benefit to Python and people wonder how, possibly, it could be beneficial to *not* have these features, let alone call that an "asset" to the language.
+
+Other people have written about this before.  Geoffrey Grosenback has "written about his experience at Northwest Python Day":http://peepcode.com/blog/2010/what-pythonistas-think-of-ruby, where he writes about Gary Bernhardt's talk on Python vs. Ruby.  Gary also "blogged about it too":http://blog.extracheese.org/2010/02/python-vs-ruby-a-battle-to-the-death.html.  I think they both take a similar approach.  Gary, specifically, really likes the syntax of blocks and feels that their lack of something equivalent in Python is hindering it from producing more beautiful and descriptive code.
+
+h2. Solving Problems
+
+Programming languages are all about trade offs.  No one language is inherently "better" than any other language.  Certainly some languages are better at certain projects, problems or styles of coding, but it's not across the board "better."  i.e. Erlang is better for applications with high concurrency and fault tolerance needs, but saying Erlang is the "best" language is like saying a truck is the best type of car.  It depends on what you want it to do!
+
+I also think this style of thinking -- "technology X is better than all other similar technologies," and their associated zealots -- cause people to "pronounce a technology stupid":http://teddziuba.com/2011/10/node-js-is-cancer.html and only popular or used because it's the "new hotness."  I think people also tend to denounce and bash other languages before they try them and make an effort to learn the their value.  Come at languages from the perspective of how learning will make you a better developer and better at your job, rather than with skepticism and FUD.  Think about how certain languages can solve problems, rather than what is, absolutely, the best language of them all.

@@ -45,24 +45,21 @@ no such file to load -- bundler
 /Users/jeff/Workspace/widgets/Rakefile:2:in <span class="sb">`</span>require<span class="err">&#39;</span>
 <span class="o">(</span>See full trace by running task with --trace<span class="o">)</span>
 </code></pre>
-</div>
-<p>That&#8217;s weird.  I ran <code>bundle exec rake</code>, and rake is apparently looking for&#8230;the bundler?</p>
+</div><p>That&#8217;s weird.  I ran <code>bundle exec rake</code>, and rake is apparently looking for&#8230;the bundler?</p>
 <p>After some further digging and <a href="http://github.com/carlhuda/bundler/issues#issue/246">uncovering a bug in Bundler</a>, I finally straightened everything out.  Before I get in to the details, read the documentation over at the <a href="http://gembundler.com/">Bunder&#8217;s website</a> as a primer.  It will help make sense for everything.</p>
 <p>So in the Bundler&#8217;s documentation, they tell you to put this at the top of your Ruby file in order to setup the Bundler and have it manage all your Gem resolution:</p>
 <div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s2">&quot;rubygems&quot;</span>
 <span class="nb">require</span> <span class="s2">&quot;bundler&quot;</span>
 <span class="no">Bundler</span><span class="o">.</span><span class="n">setup</span>
 </code></pre>
-</div>
-<p>This code requires rubygems and the bundler gem, and by calling <code>Bundler.setup</code>, you have Bundler setup all your loadpaths and do dependency resolution for you.  This is great, and t works as advertised.  You still have to <strong>require</strong> the gems, i.e. <code>require dm-core</code>,  and Bundler even offers a method, <code>Bundler.require</code> to do that for you.</p>
+</div><p>This code requires rubygems and the bundler gem, and by calling <code>Bundler.setup</code>, you have Bundler setup all your loadpaths and do dependency resolution for you.  This is great, and t works as advertised.  You still have to <strong>require</strong> the gems, i.e. <code>require dm-core</code>,  and Bundler even offers a method, <code>Bundler.require</code> to do that for you.</p>
 <p>The tricky bit comes when you need to rely on bundled gems that have associated bin files, i.e. rake or spec.  How do you run those gem bins, if bundler is bundling them for you and they&#8217;re not being installed on the system?  Simple, Bundler offers a <code>bundle exec _your_program_</code> command, that will load up the bundler environment for you, before executing <code>your_program</code>. For example, to run rake (assuming rake is bundled in your <code>Gemfile</code>), you just run <code>bundle exec rake</code>, and everything is happy.</p>
 <p>Let me ask you a question: based on how the Bundler works, what Bundler code do you put at the top of your Rakefile?  You would assume it would be the usual setup code:</p>
 <div class="highlight"><pre><code class="ruby"><span class="nb">require</span> <span class="s2">&quot;rubygems&quot;</span>
 <span class="nb">require</span> <span class="s2">&quot;bundler&quot;</span>
 <span class="no">Bundler</span><span class="o">.</span><span class="n">setup</span>
 </code></pre>
-</div>
-<p>And you&#8217;d be wrong.</p>
+</div><p>And you&#8217;d be wrong.</p>
 <p>The subtle thing about <code>bundle exec</code>, is that it basically does the 3 lines of code above <em>for you</em>.   When I added those 3 lines above to my <code>Rakefile</code>, the <code>require "bundler"</code>@ failed because I had essentially already run <code>Bundler.setup</code>, so bundler was managing all my dependencies.  Since I hadn&#8217;t added the bundler gem to my <code>Gemfile</code>, it wasn&#8217;t put in my load path by the Bundler, thus I received my load error.</p>
 <p>The punchline through all of this is this: if you have a file that is going to be executed by <code>bundle exec</code>, you can leave those 3 lines of code out completely and everything will be totally happy.  This includes ruby files, i.e. <code>bundle exec ruby my_program.rb</code>.  Just assume the first line of code in your file will already have their loadpaths figured out and all you have to do is start requiring stuff.</p>
 <p>In general though, I would avoid putting the 3 lines of setup in any program or lib you are going to write, even ones not run with <code>bundle exec</code>.  Rubygems, but <em>especially</em> the bundler, are a way to manage dependencies for your application.  You shouldn&#8217;t assume that a user of your lib is going to use Bundler to manage their dependencies.  As <a href="http://tomayko.com/writings/require-rubygems-antipattern">Ryan Tomayko says</a>, even <code>require "rubygems"</code> is a bad assumption.  What I use to manage my <code>$LOAD_PATH</code> is my concern, not yours as the library writer.</p>

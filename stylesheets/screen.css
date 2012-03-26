@@ -1319,25 +1319,31 @@ article.post header {
 article.post header time {
   color: #666666;
 }
+/* line 10, ../_sass/screen.scss */
+article.post img.inset {
+  display: inline;
+  float: right;
+  margin: 1em 0 1em 1em;
+}
 
-/* line 13, ../_sass/screen.scss */
+/* line 17, ../_sass/screen.scss */
 ul.posts time {
   font-color: #666666;
 }
 
-/* line 16, ../_sass/screen.scss */
+/* line 20, ../_sass/screen.scss */
 section#bio {
   font-size: 150%;
   font-style: italic;
 }
 
-/* line 22, ../_sass/screen.scss */
+/* line 26, ../_sass/screen.scss */
 #about p#author {
   display: inline;
   float: right;
   margin: 0 30px;
 }
-/* line 26, ../_sass/screen.scss */
+/* line 30, ../_sass/screen.scss */
 #about p#author img {
   -moz-box-shadow: 4px 4px 12px #dddddd;
   -webkit-box-shadow: 4px 4px 12px #dddddd;
@@ -1351,7 +1357,7 @@ section#bio {
   border: 7px solid white;
   border-bottom-width: 35px;
 }
-/* line 34, ../_sass/screen.scss */
+/* line 38, ../_sass/screen.scss */
 #about a#html5-badge {
   display: inline;
   float: left;

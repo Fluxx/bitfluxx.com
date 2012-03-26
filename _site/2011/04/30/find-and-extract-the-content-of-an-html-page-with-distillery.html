@@ -42,21 +42,18 @@
 <div class="highlight"><pre><code class="ruby"><span class="no">Distillery</span><span class="o">.</span><span class="n">distill</span><span class="p">(</span><span class="n">html_doc_as_a_string</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="s2">&quot;distilled content&quot;</span>
 </code></pre>
-</div>
-<p>By default Distillery will clean the <span class="caps">HTML</span> of the content element for you.  This usually removes things like advertisements, widgets, etc.  If you don&#8217;t want to clean the <span class="caps">HTML</span> of the content element, you can pass <code>:clean =&gt; false</code> as an option to the <code>distill</code> method:</p>
+</div><p>By default Distillery will clean the <span class="caps">HTML</span> of the content element for you.  This usually removes things like advertisements, widgets, etc.  If you don&#8217;t want to clean the <span class="caps">HTML</span> of the content element, you can pass <code>:clean =&gt; false</code> as an option to the <code>distill</code> method:</p>
 <div class="highlight"><pre><code class="ruby"><span class="no">Distillery</span><span class="o">.</span><span class="n">distill</span><span class="p">(</span><span class="n">html_doc_as_a_string</span><span class="p">,</span> <span class="ss">:clean</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="s2">&quot;raw distilled content&quot;</span>
 </code></pre>
-</div>
-<p>Right now the only control over cleaning the content <span class="caps">HTML</span> you have is whether to clean it, or not.  But there are a lot of levers and options in the cleaning code that I plan on adding to the public <span class="caps">API</span> to allow users of the gem to clean the content <span class="caps">HTML</span> exactly as they need to.</p>
+</div><p>Right now the only control over cleaning the content <span class="caps">HTML</span> you have is whether to clean it, or not.  But there are a lot of levers and options in the cleaning code that I plan on adding to the public <span class="caps">API</span> to allow users of the gem to clean the content <span class="caps">HTML</span> exactly as they need to.</p>
 <p>Distillery also comes with a <code>distill</code> executable that lets you distill content at the command line and print it to standard out:</p>
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>distill http://bitfluxx.com/2011/02/22/rspec-encoding-matchers-for-ruby-1-9.html
 &lt;header&gt;&lt;h1&gt;Rspec Encoding Matchers <span class="k">for </span>Ruby 1.9&lt;/h1&gt;
 &lt;p&gt;&lt;<span class="nb">time </span><span class="nv">datetime</span><span class="o">=</span><span class="s2">&quot;&quot;</span> pubdate&gt;Written 22 Feb 2011&lt;/time&gt;&lt;/p&gt;
 <span class="o">[</span>...<span class="o">]</span>
 </code></pre>
-</div>
-<p>For more details on Distillery, please see the <a href="https://github.com/Fluxx/distillery">Readme</a> or the <a href="http://rubydoc.info/gems/distillery/0.1.0/frames">RDocs</a>.</p>
+</div><p>For more details on Distillery, please see the <a href="https://github.com/Fluxx/distillery">Readme</a> or the <a href="http://rubydoc.info/gems/distillery/0.1.0/frames">RDocs</a>.</p>
   </section>
 
   

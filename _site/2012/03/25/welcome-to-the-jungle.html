@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to the Jungle - bitfluxx.com</title>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" />
+    <link href="/stylesheets/print.css" media="print" rel="stylesheet" />
+    <link href="/stylesheets/syntax.css" media="screen, projection" rel="stylesheet" />
+    <!--[if IE]>
+    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+  </head>
+  
+  <body id="blog">
+    
+    <header id="sitewide">
+      <div id="name"><h1><a href="/">bitfluxx</a></h1></div>
+      <nav>
+        <ul>
+          <li id="blog-link"><a href="/blog.html">Blog</a></li>
+          <li id="projects-link"><a href="/projects.html">Projects</a></li>
+          <li id="about-link"><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="content"><article class="post">
+  <header>
+    <h1>Welcome to the Jungle</h1>
+    <p><time datetime="" pubdate>Written 25 Mar 2012</time></p>
+  </header>
+
+  <section>
+    <p>Let&#8217;s see, the last time I wrote a post was&#8230;</p>
+<div class="highlight"><pre><code class="bash">➜  _posts git:<span class="o">(</span>master<span class="o">)</span> ls -1 | sort -r | head -1
+2011-08-21-message-passing-and-fun-with-erlang.textile
+</code></pre>
+</div><p>August 2011.  Yeah.</p>
+<p>A lot of things have changed since then.  I left my <a href="http://www.seomoz.org">previous job</a>, and <a href="http://blog.disqus.com/post/16134186401/jeff-and-jon">started a new one</a>.  To work at the new job, I&#8217;ve also moved with my Girlfriend from Seattle to San Francisco.  I had the previous job for five and&ndash;a&ndash;half years and lived in Seattle (or the surrounding area) for twenty&ndash;two years.  It&#8217;s probably the biggest change I&#8217;ve made in my life&hellip;well, ever.</p>
+<p>Part of the new job has been the experience of writing serious Python for the first time.  I had dabbled in it a little bit here and there, but never anything serious.  I always used Ruby at my day job, really enjoyed it, and was happy being a part of and contributing to that ecosystem.</p>
+<p>Two months in to my Python experience, I have to say I like the language quite a lot.  I&#8217;ll save my musings on Python for another post, because in this one I wanted to talk about my recent experience attending <a href="http://us.pycon.org/2012/">Pycon</a> a couple weekends ago, and how it compares to attending <a href="http://rubyconf.org/">Rubyconf</a> just 6 months earlier.</p>
+<p>First, let&#8217;s talk some numbers.  Rubyconf had just a few hundred people for 3 tracks over 3 days with maybe a dozen sponsors.  Pycon was <a href="http://dl.dropbox.com/u/3663715/pycon.JPG">much, much bigger</a> &#8212; 2,200+ people for five jam packed tracks with 100+ sponsors.  On the two days preceding the conference, Pycon also has <a href="https://us.pycon.org/2012/schedule/tutorials/">Tutorial Sessions</a> you can attend (for a fee) on a variety of Python topics, and for three-and-half days following the conference you can attend &#8220;Development Sprints&#8221; where you hang out with other Python developers and work on your own (or others) projects.</p>
+<p>The makeup of the Pycon crowd was certainly a lot older than the Rubyconf crowd.  The Rubyconf average attendee age was probably a solid late twenties, while Pycon was certainly 30+, if not a bit older.  Pycon also had a lot more &#8220;classic nerdy&#8221; attendees &#8212; I saw way more neck-beards, pony tails and combinations thereof than at Rubyconf.  Pycon also had ~50% Apple laptops, while Rubyconf was 90% or higher.  I also heard &#8220;Windows&#8221; mentioned many more times than at Rubyconf, and most of the time it was for <em>serious reasons</em> and not as the butt of a joke!</p>
+<p><img src="/images/piggy.png" class="inset" title="Piggy" alt="Piggy" /></p>
+<p>I think these differences are very emblematic of the two languages.  Python is an older, more established language than Ruby, and as a result has more, and larger, companies with a vested interest in its future.  There is also a large scientific community using Python, which the Ruby community does not have at all.  Thus I think Python tends to attract an older, more &#8220;serious&#8221; and seasoned crowd of developers.</p>
+<h2>Attitudes</h2>
+<p>When I mentioned that I knew Ruby at the conference, most of the replies were either a questioning expression followed by &#8220;that&#8217;s cool,&#8221; or some sort of &#8220;lolruby&#8221; reference.  Some people knew some things about Ruby, and often had questions like, &#8220;is it true that in Ruby when you do X, it does something that is totally counter to how Python does it?&#8221;  I&#8217;d explain that, &#8220;yes, it is, but there are some good things that go with doing X,&#8221; so it&#8217;s actually not a <b>totally batshit crazy</b> thing to do.</p>
+<p>Talking to people at Pycon, I quickly got the impression that Ruby was viewed as an interior language.  Not an inferior language <em>compared</em> to Python&#8230;just an inferior language, period.  I firmly believe that not very many people at the conference would use Ruby over Python for <strong>any</strong> kind of project.  Granted this was at Pycon, so it was certainly a pro-Python crowd.  But still, it seemed a little xenophobic.</p>
+<p>But let me be clear: all in all I had a great conference.  The people in the Python community are a wonderful group of people working on/in a great language so there isn&#8217;t any love lost for me in all this.</p>
+<p>But it did get me thinking&#8230;why?  What was the issue with Ruby?</p>
+<h2>Explicit vs Implicit</h2>
+<p>I&#8217;ve only been doing Python (seriously) for a couple months now, but from what I gather, the only really big difference in language features are Ruby&#8217;s blocks.  There are a few smaller things where they differ &#8212; Python is faster than Ruby in terms of speed and has more full featured stdlib &#8212; but the most part they&#8217;re quite similar in terms of functionality.</p>
+<p>Where I do see them differ, and by <strong>quite a lot</strong>, is in their philosophies.  And a lot of that philosophy comes down, in my opinion, to syntax and how code is commonly written.</p>
+<p>For Rubyists, syntax and legibility (I use that word strategically) matter quite a bit.  The language is so flexible in what you can do with it, that some amazing things are possible.  The simplest demonstration of this that I can think of is the following:</p>
+<div class="highlight"><pre><code class="ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="nb">require</span> <span class="s1">&#39;active_support/core_ext/numeric/time&#39;</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="mi">10</span><span class="o">.</span><span class="n">seconds</span><span class="o">.</span><span class="n">ago</span>
+<span class="o">=&gt;</span> <span class="mi">2012</span><span class="o">-</span><span class="mo">03</span><span class="o">-</span><span class="mi">11</span> <span class="mi">21</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">29</span> <span class="o">-</span><span class="mo">0700</span>
+</code></pre>
+</div><p>Because you can augment &#8220;built in&#8221; types, like <code>Fixnum</code>, it&#8217;s possible to add methods to the <code>Fixnum</code> object <code>10</code>.  In this case, <code>#seconds</code> was added by <code>ActiveSupport</code> time core extensions.  <code>#seconds</code> returns a <code>ActiveSupport::Duration</code> object.  That object, in turn, has a <code>#ago</code> method, which returns a <code>Time</code> object that is, unsurprisingly, 10 minutes ago.</p>
+<p>To get the equivalent value in Python, you need to do this:</p>
+<div class="highlight"><pre><code class="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">899958</span><span class="p">)</span>
+</code></pre>
+</div><p>I think this makes the distinction very obvious: Python&#8217;s method is <strong>explicit</strong> while Ruby&#8217;s is <strong>implicit</strong>.  I think it&#8217;s also pretty obvious that the Ruby syntax is more &#8220;natural&#8221; and legible, but is that better?</p>
+<h2>Does Syntax Matter?</h2>
+<p>Even if someone vehemently disagrees with it, syntax in code matters.  Python programmers have PEP8 to standardize the way code is written and &#8220;Readability counts&#8221; is part of the Zen of Python.  Python also ditches the curly brace and semicolon ceremony other &#8220;C-like&#8221; languages have.  Ruby is &#8220;maximized for programmer happiness&#8221; and, like Python, also ditches curly braces and semicolons, as well as parenthesis a lot of the time.  Coffeescript is quite popular because it is an improved syntax for writing Javascript.  Hell, even the C programming language is basically an abstraction and an easier way to write assembly.</p>
+<p>So, all other things being equal, code that has a simple and consistent syntax is better than one with a more complicated syntax.  Simpler syntaxes requires less mental tax to read, write and reason about.</p>
+<p>But it&#8217;s not that simple.  All things are certainly <strong>not</strong> equal.  While these languages I listed above are certainly improvements in syntax and style over other languages, they have their own fair share of <strong>downsides</strong>.  Due to their more free form nature, both Python and Ruby are slow, Ruby much more so.  They also both have a Global Interpreter Lock (<span class="caps">GIL</span>) which makes it easier to integrate with C libraries (positive), but limits your ability to achieve &#8220;true concurrency&#8221; (negative).  Coffeescript can be hard to debug since your error line numbers and stacktraces are referring to the generated Javascript code, not your Coffeescript, and you&#8217;ve added another compilation step in your development cycle.  C requires you to manage your own memory and, well, has lots of curly braces and semicolons.</p>
+<h2>Seeing the Value</h2>
+<p>Any language worth a damn has to serve a purpose and do <em>something</em> better than other languages.  In my opinion, Ruby&#8217;s &#8220;something&#8221; is its legibility and flexibility.  Being a more flexible language , it makes it great for writing <a href="http://wiki.opscode.com/display/chef/Recipes">easy to understand DSLs</a> and <a href="http://www.rubyonrails.org">powerful frameworks</a> and, <span class="caps">IMO</span>, offers a more efficient and flexible development process.</p>
+<p>The downside of all of this flexibility is that poorly written Ruby is harder to deal with than poorly written Python, so maintenance and understanding your and other code can be hard if that code is written poorly.  And, since Ruby is more flexible than Python, it&#8217;s also slower.</p>
+<p>It&#8217;s these downsides I think the people at Pycon fixated on.  Python meets their needs and works well, and Ruby&#8217;s strengths of &#8220;legibility&#8221; and &#8220;flexibility&#8221; are hard to quantify, so they tend to view it as simply syntactical sugar, nothing more.  In addition, the way Ruby works runs counter to a lot of the core tenets of Python &#8212; the module system + namespacing and explicitness, specifically.  I think people often view this with skepticism, since it&#8217;s certainly a benefit to Python and people wonder how, possibly, it could be beneficial to <strong>not</strong> have these features, let alone call that an &#8220;asset&#8221; to the language.</p>
+<p>Other people have written about this before.  Geoffrey Grosenback has <a href="http://peepcode.com/blog/2010/what-pythonistas-think-of-ruby">written about his experience at Northwest Python Day</a>, where he writes about Gary Bernhardt&#8217;s talk on Python vs. Ruby.  Gary also <a href="http://blog.extracheese.org/2010/02/python-vs-ruby-a-battle-to-the-death.html">blogged about it too</a>.  I think they both take a similar approach.  Gary, specifically, really likes the syntax of blocks and feels that their lack of something equivalent in Python is hindering it from producing more beautiful and descriptive code.</p>
+<h2>Solving Problems</h2>
+<p>Programming languages are all about trade offs.  No one language is inherently &#8220;better&#8221; than any other language.  Certainly some languages are better at certain projects, problems or styles of coding, but it&#8217;s not across the board &#8220;better.&#8221;  i.e. Erlang is better for applications with high concurrency and fault tolerance needs, but saying Erlang is the &#8220;best&#8221; language is like saying a truck is the best type of car.  It depends on what you want it to do!</p>
+<p>I also think this style of thinking &#8212; &#8220;technology X is better than all other similar technologies,&#8221; and their associated zealots &#8212; cause people to <a href="http://teddziuba.com/2011/10/node-js-is-cancer.html">pronounce a technology stupid</a> and only popular or used because it&#8217;s the &#8220;new hotness.&#8221;  I think people also tend to denounce and bash other languages before they try them and make an effort to learn the their value.  Come at languages from the perspective of how learning will make you a better developer and better at your job, rather than with skepticism and <span class="caps">FUD</span>.  Think about how certain languages can solve problems, rather than what is, absolutely, the best language of them all.</p>
+  </section>
+
+  
+  <section id="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'bitfluxx';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  
+</article></section>
+
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-3372951-1";
+      urchinTracker();
+    </script>
+  </body>
+</html>

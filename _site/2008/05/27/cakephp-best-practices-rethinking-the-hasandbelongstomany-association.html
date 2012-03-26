@@ -50,8 +50,7 @@
 <span class="x"> </span>
 <span class="x">}</span>
 </code></pre>
-</div>
-<p>Now our Item model.</p>
+</div><p>Now our Item model.</p>
 <div class="highlight"><pre><code class="php"><span class="x">class Item extends AppModel {</span>
 
 <span class="x">  var $name = &#39;Item&#39;;</span>
@@ -59,8 +58,7 @@
 <span class="x"> </span>
 <span class="x">}</span>
 </code></pre>
-</div>
-<p>Note that an Order &amp; Item hasMany LineItem?  Well here is the LineItem model.</p>
+</div><p>Note that an Order &amp; Item hasMany LineItem?  Well here is the LineItem model.</p>
 <div class="highlight"><pre><code class="php"><span class="x">class LineItem extends AppModel {</span>
 
 <span class="x">    var $name = &#39;LineItem&#39;;</span>
@@ -68,8 +66,7 @@
 
 <span class="x">}</span>
 </code></pre>
-</div>
-<p>Basically, now an Order has many LineItems.  And each Item is also has many LineItems.  Conversly, each LineItem belongs to an Order and an Item.</p>
+</div><p>Basically, now an Order has many LineItems.  And each Item is also has many LineItems.  Conversly, each LineItem belongs to an Order and an Item.</p>
 <p>The cool part about is that since your &#8220;join table&#8221; is now a full fledged model, you get all the things that come with a model &#8211; like a real database table, other associations, attributes, primary keys, etc.  Adding that &#8220;price&#8221; attribute for each Item joined to an Order is as simple as adding a <code>price</code> column to the <code>line_items</code> table.</p>
 <p>With this method, however, comes some lack of convenience.  With the default Cake hasAndBelongsToMany relationship, if you want to save an Order and all its associated tags, you just add an input field (like a multiple select) with <code>data[Item][Item]</code> in the Post form, and Cake does the rest.</p>
 <p>With this new method, you can still have the multiple select in your Order add form, but you&#8217;ll have to add some extra code to handle the incoming <code>data[Item][Item]</code> data and save an associated LineItem models.  It&#8217;s just a little bit of overhead, but well worth the flexibility you get with the hasMany :through method.</p>
