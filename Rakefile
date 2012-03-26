@@ -1,3 +1,4 @@
+desc "Publish the blog to Heroku"
 task :publish do
   sh 'bundle exec jekyll'
   sh 'bundle exec compass compile'
