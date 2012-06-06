@@ -6,7 +6,7 @@ section: about
 
 p(#author). !/images/me.jpg(Jeff Pollard)!
 
-This is the blog and personal website of Jeff Pollard, a software developer recently transplanted to San Francisco, CA and hacking on open source and infrastructure at "DISQUS":http://disqus.com.  I "mostly write ruby and Python":projects.html and am constantly learning as much as I possibly can about writing software.  I also love music, dogs (especially mine), beer and my "wonderful girlfriend":http://allthingssimpleblog.com/.
+This is the blog and personal website of Jeff Pollard, a software developer recently transplanted to San Francisco, CA and hacking on open source and infrastructure at "DISQUS":http://disqus.com.  I "mostly write Ruby and Python":projects.html and am constantly learning as much as I possibly can about writing software.  I also love music, dogs (especially "mine":http://i.imgur.com/kxf7T.jpg), beer and my "wonderful girlfriend":http://allthingssimpleblog.com/.
 
 Find me at these lovely online establishments:
 
