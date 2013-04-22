@@ -2,7 +2,7 @@ namespace :compile do
 
   desc "Compiles Jekyll"
   task :jekyll do
-    sh 'bundle exec compass compile'
+    sh 'bundle exec jekyll'
   end
 
   desc "Compiles Compass"
